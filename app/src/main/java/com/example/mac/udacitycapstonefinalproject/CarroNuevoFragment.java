@@ -47,7 +47,7 @@ import butterknife.ButterKnife;
          View view = inflater.inflate(R.layout.recycler_view, container, false);
          ButterKnife.bind(this, view);
 
-         mArraylistAutomoviles=new ArrayList<Automoviles>();
+         mArraylistAutomoviles=new ArrayList<>();
 
 
          layoutManager = new GridLayoutManager(getContext(), 2);
@@ -70,6 +70,7 @@ import butterknife.ButterKnife;
                      for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
                          Automoviles automoviles=snapshot.getValue(Automoviles.class);
                          Log.d("Objeto","Estos serian los valores:"+automoviles.getMarca());
+                         mArraylistAutomoviles.add(automoviles.getMarca());
 
                          
                      }

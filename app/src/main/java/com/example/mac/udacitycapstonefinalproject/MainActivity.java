@@ -94,8 +94,8 @@ public class MainActivity extends AppCompatActivity
 
         //implement tablayout
 
-        tablayout.addTab(tablayout.newTab().setText("Nuevo"),0);
-        tablayout.addTab(tablayout.newTab().setText("Usados"),1);
+        tablayout.addTab(tablayout.newTab().setText("Nuevo"));
+        tablayout.addTab(tablayout.newTab().setText("Usados"));
         PagerAdapter adapter = new TabPagerAdapter(getSupportFragmentManager(), tablayout.getTabCount());
         pager.setAdapter(adapter);
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tablayout));
