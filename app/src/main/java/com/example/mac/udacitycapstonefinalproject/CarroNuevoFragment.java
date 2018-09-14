@@ -47,14 +47,13 @@ import butterknife.ButterKnife;
          View view = inflater.inflate(R.layout.recycler_view, container, false);
          ButterKnife.bind(this, view);
 
-         mArraylistAutomoviles=new ArrayList<>();
+         mArraylistAutomoviles=new ArrayList<Automoviles>();
 
-
+         AdapterViewCars adapterViewCars=new AdapterViewCars(getContext(),mArraylistAutomoviles);
          layoutManager = new GridLayoutManager(getContext(), 2);
          recyclerView.setHasFixedSize(true);
          recyclerView.setLayoutManager(layoutManager);
-
-
+         recyclerView.setAdapter(adapterViewCars);
 
          /**
           * Traer datos de Firebase
@@ -70,7 +69,7 @@ import butterknife.ButterKnife;
                      for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
                          Automoviles automoviles=snapshot.getValue(Automoviles.class);
                          Log.d("Objeto","Estos serian los valores:"+automoviles.getMarca());
-                         mArraylistAutomoviles.add(automoviles.getMarca());
+                         mArraylistAutomoviles.add(automoviles);
 
                          
                      }

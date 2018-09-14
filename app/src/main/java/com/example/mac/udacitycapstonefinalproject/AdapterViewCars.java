@@ -37,9 +37,10 @@ public class AdapterViewCars extends RecyclerView.Adapter<AdapterViewCars.Recycl
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, final int position) {
-        holder.txtTitulo.setText(automovilesList.get(position).getMarca());
+        Automoviles automoviles=automovilesList.get(position);
+        holder.txtTitulo.setText(automoviles.getMarca());
         Glide.with(context)
-                .load(automovilesList.get(position).getImagen())
+                .load(automoviles.getImagen())
                 .into(holder.imgCarro);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
