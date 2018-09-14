@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    android:padding="3dp"
+    android:layout_marginTop="15dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="10dp"
+        android:elevation="8dp">
+
+        <ImageView
+            android:id="@+id/imgCarro"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="center"
+            android:adjustViewBounds="true"
+            android:src="@drawable/side_nav_bar" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/scrim">
+
+        </View>
+        <TextView
+            android:id="@+id/txttitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:maxLines="1"
+            android:textSize="22sp"
+            android:padding="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Nombre carro"
+            android:textColor="@android:color/white"/>
+
+    </android.support.v7.widget.CardView>
+</FrameLayout>
+

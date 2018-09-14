@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">MyCarApp</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Salir</string>
+    <string name="btnRegistrar">Registrarme</string>
+    <string name="hint_registro_usuario">Usuario</string>
+    <string name="hint_registro_clave">Clave</string>
+    <string name="err_msg_registro_usuario">Debe ingresar un usuario válido</string>
+    <string name="err_msg_registro_clave">Debe ingresar su clave</string>
+    <string name="hint_registro_correo">Correo electrónico</string>
+    <string name="err_msg_registro_correo">Debe ingresar un correo válido</string>
+    <string name="facebook_application_id">269026933937870</string>
+    <string name="fb_login_protocol_scheme">fb269026933937870</string>
+</resources>

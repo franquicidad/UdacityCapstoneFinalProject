@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "692499900856",
+    "firebase_url": "https://udacitycapstonefinal.firebaseio.com",
+    "project_id": "udacitycapstonefinal",
+    "storage_bucket": "udacitycapstonefinal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:692499900856:android:b73d5538f734be7d",
+        "android_client_info": {
+          "package_name": "com.example.mac.udacitycapstonefinalproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "692499900856-0naq6abro5nqs76mm1cooosaoo8qd51c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mac.udacitycapstonefinalproject",
+            "certificate_hash": "0f13152eabcd871b7f7d5582ab8296101d14c9ef"
+          }
+        },
+        {
+          "client_id": "692499900856-gsbpv8ac1t5opamj02nul0kohmv4d57c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mac.udacitycapstonefinalproject",
+            "certificate_hash": "dbb53f532579ecdca1a0bbd66f9e92a86a24ec3b"
+          }
+        },
+        {
+          "client_id": "692499900856-4nqlfpkoim6u1jukog4pr1c8u5bch5ll.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnNPYMsgSF7ECewyWh8cNIlIybc6kU0gg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "692499900856-4nqlfpkoim6u1jukog4pr1c8u5bch5ll.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
