@@ -93,28 +93,32 @@ public class MainActivity extends AppCompatActivity
 
 
         //implement tablayout
+//
+//
+//        PagerAdapter adapter = new TabPagerAdapter(getSupportFragmentManager(), tablayout.getTabCount());
+//        pager.setAdapter(adapter);
+//        pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tablayout));
+//        tablayout.setOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                pager.setCurrentItem(tab.getPosition());
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
 
-        tablayout.addTab(tablayout.newTab().setText("Nuevo"));
-        tablayout.addTab(tablayout.newTab().setText("Usados"));
-        PagerAdapter adapter = new TabPagerAdapter(getSupportFragmentManager(), tablayout.getTabCount());
-        pager.setAdapter(adapter);
-        pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tablayout));
-        tablayout.setOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                pager.setCurrentItem(tab.getPosition());
-            }
+        ViewPager pager1=(ViewPager)findViewById(R.id.pager) ;
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+        TabPagerAdapter adapter=new TabPagerAdapter(getSupportFragmentManager());
+        pager1.setAdapter(adapter);
 
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {

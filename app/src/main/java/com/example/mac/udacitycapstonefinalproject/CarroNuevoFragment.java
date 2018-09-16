@@ -34,6 +34,10 @@ import butterknife.ButterKnife;
 
      @BindView(R.id.recyclerview)
      RecyclerView recyclerView;
+     public static CarroNuevoFragment newInstance(int page, String title){
+         CarroNuevoFragment firstFragment= new CarroNuevoFragment();
+         return  firstFragment;
+     }
 
      public CarroNuevoFragment() {
          // Required empty public constructor
@@ -46,6 +50,8 @@ import butterknife.ButterKnife;
          // Inflate the layout for this fragment
          View view = inflater.inflate(R.layout.recycler_view, container, false);
          ButterKnife.bind(this, view);
+
+         recyclerView=(RecyclerView)view.findViewById(R.id.recyclerview);
 
          mArraylistAutomoviles=new ArrayList<Automoviles>();
 
@@ -71,7 +77,7 @@ import butterknife.ButterKnife;
                          Log.d("Objeto","Estos serian los valores:"+automoviles.getMarca());
                          mArraylistAutomoviles.add(automoviles);
 
-                         
+
                      }
                  }
 

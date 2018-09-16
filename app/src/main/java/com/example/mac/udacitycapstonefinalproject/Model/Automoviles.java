@@ -8,9 +8,20 @@ import java.util.List;
 public class Automoviles implements Parcelable {
 
 
-    private String objectId,marca,placa,referencia,color_vehiculo,imagen,sucursal,motor;
-    private int modelo,precio,chasis,kilometraje,year;
-    boolean isNuevo,transmicion;
+    private String objectId,
+            marca,
+            placa,
+            referencia,
+            color_vehiculo,
+            imagen,sucursal,
+            motor;
+    private int modelo,
+            precio,
+            chasis,
+            kilometraje,
+            year;
+    boolean isNuevo,
+            transmicion;
 
     private List<Automoviles> lista_de_automoviles=null;
 
