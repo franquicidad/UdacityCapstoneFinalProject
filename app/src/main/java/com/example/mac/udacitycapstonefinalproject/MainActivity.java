@@ -86,13 +86,23 @@ public class MainActivity extends AppCompatActivity
          * Googles User Authentication Process
          */
 
+
+        mFirebaseDatabase=FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mStorageReference= FirebaseStorage.getInstance().getReference("CarImages");
 
+        Automoviles automoviles=new Automoviles(mDatabaseReference.push().getKey(),"Mazda",
+                "JEQ675", "Mazda2", "Red", true,
+                "https://firebasestorage.googleapis.com/v0/b/udacitycapstonefinal.appspot." +
+                        "com/o/CarImages%2Fmazda2blanco.jpeg?alt=media&token=e1e58174-0f96-4c32-8fcf-650436217981",
+                2014, 50000000, 2432342, 0, "FGRE243234",
+                "AutoBlitz",true);
 
 
-        //implement tablayout
+
+       mDatabaseReference.child("Automoviles").child(automoviles.getObjectId()).setValue(automoviles);
+//
 //
 //
 //        PagerAdapter adapter = new TabPagerAdapter(getSupportFragmentManager(), tablayout.getTabCount());

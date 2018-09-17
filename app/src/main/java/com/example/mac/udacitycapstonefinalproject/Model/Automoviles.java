@@ -4,6 +4,8 @@ package com.example.mac.udacitycapstonefinalproject.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.database.DataSnapshot;
+
 import java.util.List;
 public class Automoviles implements Parcelable {
 
@@ -18,8 +20,7 @@ public class Automoviles implements Parcelable {
     private int modelo,
             precio,
             chasis,
-            kilometraje,
-            year;
+            kilometraje;
     boolean isNuevo,
             transmicion;
 
@@ -31,7 +32,7 @@ public class Automoviles implements Parcelable {
 
     public Automoviles(String objectId,String marca, String placa, String referencia, String color_vehiculo, boolean transmicion,
                        String imagen, int modelo, int precio, int chasis, int kilometraje, String motor,
-                       int year,String sucursal,boolean isNuevo) {
+                       String sucursal,boolean isNuevo) {
 
         this.objectId=objectId;
         this.marca = marca;
@@ -45,7 +46,6 @@ public class Automoviles implements Parcelable {
         this.chasis = chasis;
         this.kilometraje = kilometraje;
         this.motor = motor;
-        this.year = year;
         this.sucursal=sucursal;
         this.isNuevo=isNuevo;
     }
@@ -146,13 +146,7 @@ public class Automoviles implements Parcelable {
         this.motor = motor;
     }
 
-    public int getYear() {
-        return year;
-    }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
 
     public String getSucursal() {
         return sucursal;
@@ -212,7 +206,6 @@ public class Automoviles implements Parcelable {
         parcel.writeInt(chasis);
         parcel.writeInt(kilometraje);
         parcel.writeString(motor);
-        parcel.writeInt(year);
         parcel.writeInt(isNuevo?1:0);
 
     }
@@ -231,7 +224,6 @@ public class Automoviles implements Parcelable {
         this.chasis = in.readInt();
         this.kilometraje = in.readInt();
         this.motor = in.readString();
-        this.year = in.readInt();
         this.isNuevo=in.readInt()==1;
     }
 
@@ -248,6 +240,11 @@ public class Automoviles implements Parcelable {
         }
     };
 
+//
+//    public void setData(DataSnapshot snapshot){
+//        snapshot.getValue().
+//
+//    }
 
 
 

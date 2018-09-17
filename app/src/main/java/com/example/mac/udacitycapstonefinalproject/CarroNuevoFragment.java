@@ -31,6 +31,7 @@ import butterknife.ButterKnife;
      List<Automoviles> mArraylistAutomoviles;
      FirebaseDatabase mFirebaseDatabase;
      DatabaseReference mDatabaseReference;
+     Automoviles automoviles;
 
      @BindView(R.id.recyclerview)
      RecyclerView recyclerView;
@@ -73,9 +74,10 @@ import butterknife.ButterKnife;
                  mArraylistAutomoviles.clear();
                  if(dataSnapshot.exists()){
                      for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
-                         Automoviles automoviles=snapshot.getValue(Automoviles.class);
+                         automoviles=new Automoviles();
+                         automoviles=snapshot.getValue(Automoviles.class);
                          Log.d("Objeto","Estos serian los valores:"+automoviles.getMarca());
-                         mArraylistAutomoviles.add(automoviles);
+                         mArraylistAutomoviles.add(automoviles.getImagen());
 
 
                      }
