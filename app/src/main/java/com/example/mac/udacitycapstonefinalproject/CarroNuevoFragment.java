@@ -75,9 +75,7 @@ import butterknife.ButterKnife;
                  if(dataSnapshot.exists()){
                      for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
                          automoviles=new Automoviles();
-                         automoviles=snapshot.getValue(Automoviles.class);
-                         Log.d("Objeto","Estos serian los valores:"+automoviles.getMarca());
-                         mArraylistAutomoviles.add(automoviles.getImagen());
+                         mArraylistAutomoviles.add(snapshot.getValue(Automoviles.class));
 
 
                      }
