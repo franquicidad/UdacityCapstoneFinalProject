@@ -33,6 +33,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -92,44 +93,10 @@ public class MainActivity extends AppCompatActivity
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mStorageReference= FirebaseStorage.getInstance().getReference("CarImages");
 
-        Automoviles automoviles=new Automoviles(mDatabaseReference.push().getKey(),"Mazda",
-                "JEQ675", "Mazda2", "Red", true,
-                "https://firebasestorage.googleapis.com/v0/b/udacitycapstonefinal.appspot." +
-                        "com/o/CarImages%2Fmazda2blanco.jpeg?alt=media&token=e1e58174-0f96-4c32-8fcf-650436217981",
-                2014, 50000000, 2432342, 0, "FGRE243234",
-                "AutoBlitz",true);
-
-
-
-       mDatabaseReference.child("Automoviles").child(automoviles.getObjectId()).setValue(automoviles);
-//
-//
-//
-//        PagerAdapter adapter = new TabPagerAdapter(getSupportFragmentManager(), tablayout.getTabCount());
-//        pager.setAdapter(adapter);
-//        pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tablayout));
-//        tablayout.setOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                pager.setCurrentItem(tab.getPosition());
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
-
         ViewPager pager1=(ViewPager)findViewById(R.id.pager) ;
 
         TabPagerAdapter adapter=new TabPagerAdapter(getSupportFragmentManager());
         pager1.setAdapter(adapter);
-
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -193,16 +160,9 @@ public class MainActivity extends AppCompatActivity
             Glide.with(this).load(user.getPhotoUrl().toString()).into(imgdwavatar);
 
         } else {
-            //llevarlo al login
+            //TODO:Implementar lo de que si el usuario no esta registrado lo mande al login screen
         }
     }
-
-//    private void savedatos() {
-//        User user = new User("13131", "242424","4234232");
-//        FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
-//        mDatabaseReference.child("perfil").push().setValue(user);
-//    }
-
 
     private void onSignedOutCleanup() {
         mUsername = ANONYMOUS;

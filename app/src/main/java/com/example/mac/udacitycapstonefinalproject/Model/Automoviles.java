@@ -4,8 +4,6 @@ package com.example.mac.udacitycapstonefinalproject.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.firebase.database.DataSnapshot;
-
 import java.util.List;
 public class Automoviles implements Parcelable {
 
@@ -21,7 +19,7 @@ public class Automoviles implements Parcelable {
             precio,
             chasis,
             kilometraje;
-    boolean isNuevo,
+    boolean nuevo,
             transmicion;
 
     private List<Automoviles> lista_de_automoviles=null;
@@ -30,11 +28,10 @@ public class Automoviles implements Parcelable {
 
     }
 
-    public Automoviles(String objectId,String marca, String placa, String referencia, String color_vehiculo, boolean transmicion,
+    public Automoviles(String marca, String placa, String referencia, String color_vehiculo, boolean transmicion,
                        String imagen, int modelo, int precio, int chasis, int kilometraje, String motor,
                        String sucursal,boolean isNuevo) {
 
-        this.objectId=objectId;
         this.marca = marca;
         this.placa = placa;
         this.referencia = referencia;
@@ -47,7 +44,7 @@ public class Automoviles implements Parcelable {
         this.kilometraje = kilometraje;
         this.motor = motor;
         this.sucursal=sucursal;
-        this.isNuevo=isNuevo;
+        this.nuevo =isNuevo;
     }
 
     public String getObjectId() {
@@ -157,11 +154,11 @@ public class Automoviles implements Parcelable {
     }
 
     public boolean isNuevo() {
-        return isNuevo;
+        return nuevo;
     }
 
     public void setNuevo(boolean nuevo) {
-        isNuevo = nuevo;
+        this.nuevo = nuevo;
     }
 
     public List<Automoviles> getLista_de_automoviles() {
@@ -206,7 +203,7 @@ public class Automoviles implements Parcelable {
         parcel.writeInt(chasis);
         parcel.writeInt(kilometraje);
         parcel.writeString(motor);
-        parcel.writeInt(isNuevo?1:0);
+        parcel.writeInt(nuevo ?1:0);
 
     }
 
@@ -224,7 +221,7 @@ public class Automoviles implements Parcelable {
         this.chasis = in.readInt();
         this.kilometraje = in.readInt();
         this.motor = in.readString();
-        this.isNuevo=in.readInt()==1;
+        this.nuevo =in.readInt()==1;
     }
 
     public static final Parcelable.Creator<Automoviles> CREATOR=new Parcelable.Creator<Automoviles>(){
