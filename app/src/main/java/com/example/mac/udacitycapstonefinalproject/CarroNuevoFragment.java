@@ -39,10 +39,7 @@ import butterknife.ButterKnife;
      List<Automoviles> mArraylistAutomoviles;
      FirebaseDatabase mFirebaseDatabase;
      DatabaseReference mDatabaseReference;
-     FirebaseAuth mAuth;
-     Automoviles automoviles;
-     private String userID;
-     FirebaseUser user;
+
 
      @BindView(R.id.recyclerview)
      RecyclerView recyclerView;

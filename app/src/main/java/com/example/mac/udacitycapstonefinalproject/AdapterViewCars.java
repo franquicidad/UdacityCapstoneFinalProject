@@ -25,7 +25,6 @@ public class AdapterViewCars extends RecyclerView.Adapter<AdapterViewCars.Recycl
     public AdapterViewCars(Context context, List<Automoviles> itemList){
         this.automovilesList=itemList;
         this.context=context;
-
     }
     @NonNull
     @Override
@@ -45,11 +44,11 @@ public class AdapterViewCars extends RecyclerView.Adapter<AdapterViewCars.Recycl
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Automoviles model = automovilesList.get(position);
-//                Intent intent  =new Intent(context, CarroDetalleActivity.class);
-//
-//                intent.putExtra("ListaVehiculos",model);
-//                context.startActivity(intent);
+                Automoviles model = automovilesList.get(position);
+                Intent intent  =new Intent(context, CarDetailView.class);
+
+                intent.putExtra("ListaVehiculos",model);
+                context.startActivity(intent);
             }
         });
     }
@@ -80,3 +79,4 @@ public class AdapterViewCars extends RecyclerView.Adapter<AdapterViewCars.Recycl
 
 
 }
+

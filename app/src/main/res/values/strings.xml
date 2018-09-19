@@ -16,4 +16,6 @@
     <string name="err_msg_registro_correo">Debe ingresar un correo válido</string>
     <string name="facebook_application_id">269026933937870</string>
     <string name="fb_login_protocol_scheme">fb269026933937870</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+
 </resources>
