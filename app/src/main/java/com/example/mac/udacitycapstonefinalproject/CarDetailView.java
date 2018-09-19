@@ -61,7 +61,6 @@ public class CarDetailView extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        textView.setText("Referencia");
         automoviles = getIntent().getExtras().getParcelable("ListaVehiculos");
         toolbar.setTitle(automoviles.getMarca());
         detalleModelo.setText(automoviles.getModelo() + "");
