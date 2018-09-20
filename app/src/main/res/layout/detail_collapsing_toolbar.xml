@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/coordinator_layout"
@@ -19,7 +20,6 @@
             android:layout_height="210dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleTextAppearance="@android:color/transparent"
             android:fitsSystemWindows="true">
             
             <ImageView
@@ -29,10 +29,11 @@
                 android:src="@drawable/mazda2azul"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax" />
+
             <View
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@drawable/scrim">
 
             </View>
@@ -41,9 +42,8 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@drawable/background_translucent_tool"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:theme="@style/Theme.AppCompat.Light"
 
                 >
 
@@ -84,8 +84,6 @@
             android:elevation="8dp">
             <LinearLayout
                 android:padding="8dp"
-
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
