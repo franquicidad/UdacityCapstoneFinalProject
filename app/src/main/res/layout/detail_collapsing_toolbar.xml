@@ -43,6 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
+                android:background="@drawable/background_translucent_toolbar"
                 android:theme="@style/Theme.AppCompat.Light"
 
                 >
@@ -67,8 +68,7 @@
          <TextView
              android:id="@+id/car_description"
              android:layout_width="match_parent"
-             android:layout_height="0dp"
-             android:layout_weight="1"
+             android:layout_height="wrap_content"
              android:padding="20dp"
              android:textColor="#000000"
              android:text="@string/mazda2description"/>
@@ -76,8 +76,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             app:cardUseCompatPadding="true"
             app:cardCornerRadius="2dp"
