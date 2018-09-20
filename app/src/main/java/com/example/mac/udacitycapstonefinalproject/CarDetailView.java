@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,10 +48,10 @@ public class CarDetailView extends AppCompatActivity {
     TextView detalleKilometraje;
     @BindView(R.id.lykilometraje)
     LinearLayout lykilometraje;
-    @BindView(R.id.detalle_transmicion)
-    TextView detalleTransmicion;
     @BindView(R.id.layout_transmicion)
     LinearLayout layoutTransmicion;
+    @BindView(R.id.coordinator_layout)
+    CoordinatorLayout coordinatorLayout;
 
     private Automoviles automoviles;
 
@@ -76,6 +78,25 @@ public class CarDetailView extends AppCompatActivity {
 
         Glide.with(this).load(automoviles.getImagen()).into(imgdetalle);
 
+        final Display dwigth = getWindowManager().getDefaultDisplay();
+
+        appbarLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                int heigthPx = dwigth.getWidth() * 1 / 3;
+                setAppbarOffset(heigthPx);
+            }
+        });
+
+
+
+
+    }
+
+    private void setAppbarOffset(int heigthPx) {
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appbarLayout.getLayoutParams();
+        AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
+        behavior.onNestedPreScroll(coordinatorLayout, appbarLayout, null, 0, heigthPx, new int[]{0, 0});
 
     }
 

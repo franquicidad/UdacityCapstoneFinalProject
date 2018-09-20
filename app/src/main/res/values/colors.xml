@@ -3,4 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    //Resources for the translucent toolbar
+    <color name="black_alpha_40">#66000000</color>
+
 </resources>

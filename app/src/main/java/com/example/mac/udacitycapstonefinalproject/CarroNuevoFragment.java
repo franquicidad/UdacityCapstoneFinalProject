@@ -120,9 +120,16 @@ import butterknife.ButterKnife;
              public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                  Automoviles automoviles = new Automoviles();
 
+                 /**
+                  * Here you Create another Automoviles object to setLista_de_automoviles
+                  */
+
                  automoviles.setLista_de_automoviles(svAutomoviles.GetAutomoviles(dataSnapshot));
 
-
+                 /**
+                  * Then you get the arraylist in the adapters constructor which receives as parameters
+                  * AdapterViewCars(context,List<Automoviles)
+                  */
                  AdapterViewCars adapterViewCars=new AdapterViewCars(getContext(), automoviles.getLista_de_automoviles());
                  layoutManager = new GridLayoutManager(getContext(), 2);
                  recyclerView.setHasFixedSize(true);
