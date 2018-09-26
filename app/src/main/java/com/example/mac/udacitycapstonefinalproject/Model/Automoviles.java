@@ -19,8 +19,7 @@ public class Automoviles implements Parcelable {
             precio,
             chasis,
             kilometraje;
-    boolean nuevo,
-            transmicion;
+
 
     private List<Automoviles> lista_de_automoviles=null;
 
@@ -28,15 +27,15 @@ public class Automoviles implements Parcelable {
 
     }
 
-    public Automoviles(String marca, String placa, String referencia, String color_vehiculo, boolean transmicion,
+    public Automoviles(String marca, String placa, String referencia, String color_vehiculo,
                        String imagen, int modelo, int precio, int chasis, int kilometraje, String motor,
-                       String sucursal,boolean isNuevo) {
+                       String sucursal) {
 
         this.marca = marca;
         this.placa = placa;
         this.referencia = referencia;
         this.color_vehiculo = color_vehiculo;
-        this.transmicion = transmicion;
+
         this.imagen = imagen;
         this.modelo = modelo;
         this.precio = precio;
@@ -44,7 +43,7 @@ public class Automoviles implements Parcelable {
         this.kilometraje = kilometraje;
         this.motor = motor;
         this.sucursal=sucursal;
-        this.nuevo =isNuevo;
+
     }
 
     public String getObjectId() {
@@ -87,13 +86,7 @@ public class Automoviles implements Parcelable {
         this.color_vehiculo = color_vehiculo;
     }
 
-    public boolean getTransmicion() {
-        return transmicion;
-    }
 
-    public void setTransmicion(boolean transmicion) {
-        this.transmicion = transmicion;
-    }
 
     public String getPlaca() {
         return placa;
@@ -153,13 +146,6 @@ public class Automoviles implements Parcelable {
         this.sucursal = sucursal;
     }
 
-    public boolean isNuevo() {
-        return nuevo;
-    }
-
-    public void setNuevo(boolean nuevo) {
-        this.nuevo = nuevo;
-    }
 
     public List<Automoviles> getLista_de_automoviles() {
         return lista_de_automoviles;
@@ -195,7 +181,6 @@ public class Automoviles implements Parcelable {
         parcel.writeString(placa);
         parcel.writeString(referencia);
         parcel.writeString(color_vehiculo);
-        parcel.writeInt(transmicion ? 1 :0);
         parcel.writeString(imagen);
         parcel.writeString(sucursal);
         parcel.writeInt(modelo);
@@ -203,7 +188,6 @@ public class Automoviles implements Parcelable {
         parcel.writeInt(chasis);
         parcel.writeInt(kilometraje);
         parcel.writeString(motor);
-        parcel.writeInt(nuevo ?1:0);
 
     }
 
@@ -213,7 +197,6 @@ public class Automoviles implements Parcelable {
         this.placa = in.readString();
         this.referencia = in.readString();
         this.color_vehiculo = in.readString();
-        this.transmicion = in.readInt()==1;
         this.imagen = in.readString();
         this.sucursal = in.readString();
         this.modelo = in.readInt();
@@ -221,7 +204,7 @@ public class Automoviles implements Parcelable {
         this.chasis = in.readInt();
         this.kilometraje = in.readInt();
         this.motor = in.readString();
-        this.nuevo =in.readInt()==1;
+
     }
 
     public static final Parcelable.Creator<Automoviles> CREATOR=new Parcelable.Creator<Automoviles>(){

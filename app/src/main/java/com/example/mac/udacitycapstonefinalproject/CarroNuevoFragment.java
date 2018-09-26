@@ -41,8 +41,10 @@ import butterknife.ButterKnife;
      DatabaseReference mDatabaseReference;
 
 
+
      @BindView(R.id.recyclerview)
      RecyclerView recyclerView;
+
      public static CarroNuevoFragment newInstance(int page, String title){
          CarroNuevoFragment firstFragment= new CarroNuevoFragment();
          return  firstFragment;
@@ -51,10 +53,6 @@ import butterknife.ButterKnife;
      public CarroNuevoFragment() {
          // Required empty public constructor
      }
-
-
-
-
 
      @Override
      public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -104,6 +102,7 @@ import butterknife.ButterKnife;
              @Override
              public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                  Automoviles automoviles = svAutomoviles.GetAutomovil(dataSnapshot);
+                 automoviles.getPrecio();
 
              }
              @Override
@@ -125,6 +124,12 @@ import butterknife.ButterKnife;
                   */
 
                  automoviles.setLista_de_automoviles(svAutomoviles.GetAutomoviles(dataSnapshot));
+
+                 Automoviles xx=svAutomoviles.GetAutomovil(dataSnapshot);
+                 String marca=xx.getMarca();
+                 Log.i("MArca","This is -----------------> MArca:"+marca);
+
+
 
                  /**
                   * Then you get the arraylist in the adapters constructor which receives as parameters

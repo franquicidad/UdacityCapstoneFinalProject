@@ -1,12 +1,16 @@
 package com.example.mac.udacitycapstonefinalproject.Service;
 
 import com.example.mac.udacitycapstonefinalproject.Model.Automoviles;
+import com.example.mac.udacitycapstonefinalproject.Model.Users;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SvAutomoviles {
+
+
+
     public Automoviles GetAutomovil(DataSnapshot dataSnapshot) {
         Automoviles automoviles =  dataSnapshot.getValue(Automoviles.class);
         return automoviles;
@@ -38,4 +42,24 @@ public class SvAutomoviles {
          */
         return automovilesList;
     }
+
+    public List<Users> getUsers(DataSnapshot snapshot){
+
+        List<Users> usersList=new ArrayList<>();
+
+        for(DataSnapshot ds:snapshot.getChildren()) {
+            /**
+             * Create an automoviles Object and assign all the data from the database
+             */
+            Users users = ds.getValue(Users.class);
+
+            usersList.add(users);
+
+
+    }
+        return usersList;
+
+
+    }
 }
+

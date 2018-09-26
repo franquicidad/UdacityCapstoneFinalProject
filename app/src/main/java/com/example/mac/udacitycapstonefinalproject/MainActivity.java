@@ -10,12 +10,12 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.mac.udacitycapstonefinalproject.Model.Automoviles;
+import com.example.mac.udacitycapstonefinalproject.Model.Users;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -66,13 +67,15 @@ public class MainActivity extends AppCompatActivity
     private ChildEventListener mChildEventListener;
     private static final int RC_SIGN_IN = 123;
     public static final String ANONYMOUS = "anonymous";
-    Automoviles automoviles;
 
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
     private StorageReference mStorageReference;
+    FirebaseUser user;
+    String UID;
+    boolean isAdm;
 
     ArrayList<Automoviles> automovilesArrayList;
 
@@ -83,9 +86,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-
-
-
         /**
          * Googles User Authentication Process
          */
@@ -93,6 +93,25 @@ public class MainActivity extends AppCompatActivity
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mStorageReference= FirebaseStorage.getInstance().getReference("CarImages");
+
+
+        user=FirebaseAuth.getInstance().getCurrentUser();
+        Log.i("User"," This is the user ---->:"+user);
+        UID=user.getUid();
+        Log.i("User1","This is user 1:---->:"+UID);
+
+        if(mFirebaseAuth.getCurrentUser()==null) {
+
+            mDatabaseReference.child("Users").child(user.getUid()).child("name").setValue(user.getDisplayName());
+
+            mDatabaseReference.child("Users").child(user.getUid()).child("isAdmin").setValue(false);
+        }
+
+
+
+        //TODO: Mirar como hacer para subir a la base de datos desde aca obtener el UID y subir con getDisplayName y el resto de cosas.
+
+
 
         ViewPager pager1=(ViewPager)findViewById(R.id.pager) ;
 
@@ -128,15 +147,43 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        mDatabaseReference.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                //savedatos();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Users users = snapshot.getValue(Users.class);
+                    Log.i("Users", "this are the data in Users--------->" + users);
+                    boolean Administrator=users.isAdmin();
+                    Log.i("isAdm", "The is User is and admnin or not:------->" + isAdm);
+
+
+                    if (isAdm== true) {
+                        fab.show();
+
+                    } else {
+                        fab.hide();
+                    }
+
+                }
+
+                fab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        //savedatos();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
