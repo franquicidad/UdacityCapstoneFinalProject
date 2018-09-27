@@ -34,6 +34,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -85,10 +86,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         /**
          * Googles User Authentication Process
          */
+
         mFirebaseDatabase=FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
@@ -106,6 +107,25 @@ public class MainActivity extends AppCompatActivity
 
             mDatabaseReference.child("Users").child(user.getUid()).child("isAdmin").setValue(false);
         }
+//
+//        Query query=mDatabaseReference.child("Users");
+//        query.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for (DataSnapshot ds:dataSnapshot.getChildren()) {
+//                    boolean users= (boolean) ds.child(mFirebaseAuth.getUid()).child("isAdmin").getValue();
+
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+
+
 
 
 
@@ -132,9 +152,11 @@ public class MainActivity extends AppCompatActivity
                             AuthUI.getInstance()
                                     .createSignInIntentBuilder()
                                     .setAvailableProviders(Arrays.asList(
+
                                             new AuthUI.IdpConfig.GoogleBuilder().build(),
                                             new AuthUI.IdpConfig.EmailBuilder().build(),
                                             new AuthUI.IdpConfig.FacebookBuilder().build()
+
                                     ))
                                     .build(),
                             RC_SIGN_IN);
@@ -147,34 +169,85 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mDatabaseReference.child("Users").addValueEventListener(new ValueEventListener() {
+//        mDatabaseReference.child("Users").child("isAdmin").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                    Users users = snapshot.getValue(Users.class);
+//                    Log.i("Users", "this are the data in Users--------->" + users);
+//                    boolean administrator=users.isAdmin();
+//                    Log.i("isAdm", "The is User is and admnin or not:------->" + administrator);
+//
+//
+//                    if (isAdm== true) {
+//                        fab.show();
+//
+//                    } else {
+//                        fab.hide();
+//                    }
+//
+//                }
+//
+//                fab.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                                .setAction("Action", null).show();
+//                        //savedatos();
+//                    }
+//                });
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//
+//        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+//        DatabaseReference uidRef = rootRef.child("Users").child(uid);
+//        ValueEventListener valueEventListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                boolean isAdmin = dataSnapshot.child("isAdmin").getValue(Boolean.class);
+//                Log.d("TAG", "isAdmin is: " + isAdmin);
+//
+//                if(isAdmin) {
+//                    fab.show();
+//                } else {
+//                    fab.hide();
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Log.d("TAG1", databaseError.getMessage());
+//            }
+//        };
+//        uidRef.addListenerForSingleValueEvent(valueEventListener);
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference usersRef = rootRef.child("Users");
+        usersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    boolean isAdmin = ds.child("isAdmin").getValue(Boolean.class);
+                    Users users =ds.getValue(Users.class);
+                    String name =users.getName();
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Users users = snapshot.getValue(Users.class);
-                    Log.i("Users", "this are the data in Users--------->" + users);
-                    boolean Administrator=users.isAdmin();
-                    Log.i("isAdm", "The is User is and admnin or not:------->" + isAdm);
+                    Log.d("TAG", "isAdmin is: " + isAdmin);
 
-
-                    if (isAdm== true) {
+                    if (isAdmin) {
                         fab.show();
-
                     } else {
                         fab.hide();
                     }
-
                 }
-
-                fab.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                        //savedatos();
-                    }
-                });
 
             }
 
@@ -198,6 +271,8 @@ public class MainActivity extends AppCompatActivity
         TextView dwCorreo = (TextView) headerView.findViewById(R.id.drawer_correo);
         ImageView imgdwavatar = (ImageView) headerView.findViewById(R.id.imgdwavatar);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
         if (user != null) {
             String name = user.getDisplayName();
             String email = user.getEmail();
@@ -210,7 +285,21 @@ public class MainActivity extends AppCompatActivity
         } else {
             //TODO:Implementar lo de que si el usuario no esta registrado lo mande al login screen
         }
+
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentAddCar=new Intent(getApplicationContext(),AdminAddCar.class);
+                startActivity(intentAddCar);
+
+
+            }
+        });
+
     }
+
+
 
     private void onSignedOutCleanup() {
         mUsername = ANONYMOUS;

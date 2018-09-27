@@ -25,6 +25,9 @@
         <activity
             android:name=".CarDetailView"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AdminAddCar"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

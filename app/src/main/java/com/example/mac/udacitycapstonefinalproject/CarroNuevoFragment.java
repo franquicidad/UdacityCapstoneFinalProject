@@ -102,7 +102,6 @@ import butterknife.ButterKnife;
              @Override
              public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                  Automoviles automoviles = svAutomoviles.GetAutomovil(dataSnapshot);
-                 automoviles.getPrecio();
 
              }
              @Override
@@ -125,8 +124,11 @@ import butterknife.ButterKnife;
 
                  automoviles.setLista_de_automoviles(svAutomoviles.GetAutomoviles(dataSnapshot));
 
+                 mArraylistAutomoviles=automoviles.getLista_de_automoviles();
+                 String marca=automoviles.getMarca();
+
+
                  Automoviles xx=svAutomoviles.GetAutomovil(dataSnapshot);
-                 String marca=xx.getMarca();
                  Log.i("MArca","This is -----------------> MArca:"+marca);
 
 
