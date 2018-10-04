@@ -27,7 +27,8 @@ public class Automoviles implements Parcelable {
 
     }
 
-    public Automoviles(String objectId ,String marca , String placa, String referencia, String color_vehiculo,
+
+    public Automoviles(String marca , String placa, String referencia, String color_vehiculo,
                        String imagen, int modelo, int precio, int chasis, int kilometraje, String motor,
                        String sucursal) {
 
@@ -35,7 +36,7 @@ public class Automoviles implements Parcelable {
         this.placa = placa;
         this.referencia = referencia;
         this.color_vehiculo = color_vehiculo;
-        this.objectId=objectId;
+
         this.imagen = imagen;
         this.modelo = modelo;
         this.precio = precio;

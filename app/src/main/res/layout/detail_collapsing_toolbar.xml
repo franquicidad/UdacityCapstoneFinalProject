@@ -66,6 +66,8 @@
          android:layout_height="wrap_content"
          android:orientation="vertical">
 
+
+
          <TextView
              android:id="@+id/car_description"
              android:layout_width="match_parent"
@@ -278,6 +280,45 @@
         </android.support.v7.widget.CardView>
 
          <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal">
+             <EditText
+                 android:id="@+id/edittext_url"
+                 android:layout_width="0dp"
+                 android:layout_weight="1"
+                 android:cursorVisible="true"
+                 android:textIsSelectable="true"
+                 android:layout_height="wrap_content"
+                 android:hint="Please enter the URL"/>
+             <Button
+                 android:id="@+id/button_for_pic"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Add Picture"
+                 android:gravity="center"
+                 />
+
+         </LinearLayout>
+
+         <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="10dp">
+
+             <ImageView
+                 android:id="@+id/uploaded_pic"
+                 android:layout_width="match_parent"
+                 android:layout_height="300dp"
+                 android:scaleType="fitXY"
+                 android:layout_alignParentTop="true"
+                 android:layout_marginTop="15dp"
+                 android:layout_marginBottom="15dp"
+                 android:layout_centerHorizontal="true"
+                 android:src="@drawable/photo_camera" />
+         </RelativeLayout>
+
+         <LinearLayout
              android:orientation="horizontal"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
@@ -301,15 +342,6 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
-        android:elevation="6dp"
-        android:src="@drawable/ic_favorite_border"
-        app:layout_anchor="@id/appbar_layout"
-        app:layout_anchorGravity="bottom|right"
-        app:pressedTranslationZ="12dp" />
 
 
 

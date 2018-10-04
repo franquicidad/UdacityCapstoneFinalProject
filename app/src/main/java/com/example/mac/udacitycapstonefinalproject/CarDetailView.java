@@ -1,6 +1,11 @@
 package com.example.mac.udacitycapstonefinalproject;
 
+import android.app.ProgressDialog;
+import android.content.ClipboardManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -11,18 +16,29 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.mac.udacitycapstonefinalproject.Model.Automoviles;
+import com.example.mac.udacitycapstonefinalproject.Model.Favorites;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,14 +77,30 @@ public class CarDetailView extends AppCompatActivity {
     TextView carDescription;
     @BindView(R.id.adView)
     AdView adView;
+    @BindView(R.id.edittext_url)
+    EditText edittextUrl;
+    @BindView(R.id.button_for_pic)
+    Button buttonForPic;
+    @BindView(R.id.uploaded_pic)
+    ImageView uploadedPic;
+
 
     private Automoviles automoviles;
+
+    boolean favorite = false;
+
+    public List<Favorites> favoritesList;
+
+    public Favorites favorites;
+    FirebaseUser user;
+    String urlPicture;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_collapsing_toolbar);
         ButterKnife.bind(this);
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         MobileAds.initialize(this, String.valueOf(R.string.app_id_ads));
 
@@ -102,6 +134,51 @@ public class CarDetailView extends AppCompatActivity {
 
         Glide.with(this).load(automoviles.getImagen()).into(imgdetalle);
 
+
+        buttonForPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                downloadPicture();
+
+            }
+        });
+
+//
+//        databaseReference = FirebaseDatabase.getInstance().getReference(AppModel.Favorites);
+//
+//        favoritesButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+//                final DatabaseReference usersRef = rootRef.child("Favorites");
+//                favorites = new Favorites(automoviles.getObjectId(), user.getUid(), AppModel.GetDate());
+//                databaseReference.push().setValue(favorites);
+//
+//
+//                usersRef.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
+//                            String car = ds.child("automovilesId").getValue(String.class);
+//                            Favorites fav =ds.getValue(Favorites.class);
+//                            String carId =fav.getAutomovilesId();
+//                            Log.i("No","Este es el nombre------>:"+carId);
+//                            String id=ds.getKey();
+//                            AddFavoritesuser();
+//                        }
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
+//
+//            }
+//        });
+
+
         final Display dwigth = getWindowManager().getDefaultDisplay();
 
         appbarLayout.post(new Runnable() {
@@ -111,7 +188,51 @@ public class CarDetailView extends AppCompatActivity {
                 setAppbarOffset(heigthPx);
             }
         });
+
+
     }
+//
+//    private void GetFavorites() {
+//        Query query = databaseReference.orderByChild("automovilesId").equalTo(automoviles.getObjectId());
+//        query.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.getValue() ==null) {
+//                        AddFavoritesuser();
+//                } else {
+//
+//                    for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+//                        Favorites favorites =childDataSnapshot.getValue(Favorites.class);
+//                        if(favorites.getUserId()==user.getUid()) {
+//                            childDataSnapshot.getRef().removeValue();
+//                            Log.d("Datos a volar ", childDataSnapshot.getKey());
+//                        }
+//
+//                    }
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+
+
+//    private void deleteFavoritesUser(String key) {
+//        favoritesButton.setImageResource(R.drawable.ic_favorite_border);
+//        databaseReference.child(key).getRef().removeValue();
+//
+//    }
+//
+//    private void AddFavoritesuser() {
+//        favoritesButton.setImageResource(R.drawable.ic_favorite);
+//        favorites = new Favorites(automoviles.getObjectId(), user.getUid(), AppModel.GetDate());
+//        databaseReference.push().setValue(favorites);
+//    }
+
 
     private void setAppbarOffset(int heigthPx) {
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) appbarLayout.getLayoutParams();
@@ -120,4 +241,75 @@ public class CarDetailView extends AppCompatActivity {
 
     }
 
+
+
+
+    private void downloadPicture(){
+
+        DownloadImagePicture downloadImagePicture=new DownloadImagePicture();
+        urlPicture=edittextUrl.getText().toString().trim();
+
+        downloadImagePicture.execute(urlPicture);
+
+        Log.i("PIC","This is the url"+urlPicture);
+
+
+
+
+    }
+
+    private class DownloadImagePicture extends AsyncTask<String,Void,Bitmap>{
+
+        ProgressDialog progressDialog;
+
+
+        @Override
+        protected Bitmap doInBackground(String... strings) {
+
+            try {
+                URL pictUrl=new URL(strings[0]);
+
+                HttpURLConnection httpURLConnection=(HttpURLConnection)pictUrl.openConnection();
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.connect();
+
+                InputStream inputStream=httpURLConnection.getInputStream();
+
+                Bitmap bitmap=BitmapFactory.decodeStream(inputStream);
+                Log.i("BIT","This is the image____________:"+bitmap);
+
+                return bitmap;
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            super.onPostExecute(bitmap);
+
+            progressDialog.dismiss();
+            Log.i("BIT","This is the image____________:"+bitmap);
+
+
+            uploadedPic.setImageBitmap(bitmap);
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog=new ProgressDialog(CarDetailView.this);
+            progressDialog.setMessage("Downloading Picture...");
+            progressDialog.setIndeterminate(true);
+            progressDialog.show();
+        }
+    }
+
 }
+

@@ -7,24 +7,30 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.mac.udacitycapstonefinalproject.Model.Automoviles;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AdminAddCar extends AppCompatActivity{
+public class AdminAddCar extends AppCompatActivity {
 
     @BindView(R.id.image_add_admin_layout)
     ImageView imageAddAdminLayout;
@@ -51,18 +57,19 @@ public class AdminAddCar extends AppCompatActivity{
     @BindView(R.id.ed_sucursal)
     EditText edSucursal;
 
-    FirebaseAuth firebaseAuth;
-    FirebaseDatabase firebaseDatabase;
-    FirebaseUser firebaseUser;
+
 
     String uId;
-
+    String image;
 
 
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
+    DatabaseReference databaseReference;
 
     private static final int RC_PHOTO_PICKER = 2;
+    @BindView(R.id.adm_boton_guardar)
+    Button admBotonGuardar;
 
 
     @Override
@@ -74,15 +81,9 @@ public class AdminAddCar extends AppCompatActivity{
         /**
          * Implement the photo picker
          */
-        firebaseStorage=FirebaseStorage.getInstance();
-        storageReference=firebaseStorage.getReference().child("carUploads");
-
-
-
-
-
-
-
+        databaseReference = FirebaseDatabase.getInstance().getReference("Automoviles");
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference().child("carUploads");
 
 
 
@@ -96,54 +97,69 @@ public class AdminAddCar extends AppCompatActivity{
                 startActivityForResult(Intent.createChooser(intent, "Complete action using"), RC_PHOTO_PICKER);
             }
         });
-    }
 
+        admBotonGuardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GuardarAutomoviles();
+                finish();
+            }
+        });
+    }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode == RC_PHOTO_PICKER && resultCode==RESULT_OK){
-//
-//            Uri selectedImageUri=data.getData();
-//            Log.i("ImageUri","This is the ImageUri ----------------------->:"+selectedImageUri);
-//            final StorageReference photoRef=storageReference.child(selectedImageUri.getLastPathSegment());
-//            photoRef.putFile(selectedImageUri).addOnSuccessListener(
-//                    this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                            Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
-//                            while (!urlTask.isSuccessful());
-//                            Uri downloadUrl = urlTask.getResult();
-//                            Automoviles autos=new Automoviles(null , mUsername , downloadUrl.toString());
-//                            mMessagesDatabaseReference.push().setValue(autos);
-//
-//                        }
-//                    });
-//        }
+        if (requestCode == RC_PHOTO_PICKER && resultCode == RESULT_OK) {
+
+            Uri selectedImageUri = data.getData();
+            Log.i("ImageUri", "This is the ImageUri ----------------------->:" + selectedImageUri);
+            final StorageReference photoRef = storageReference.child(selectedImageUri.getLastPathSegment());
+            photoRef.putFile(selectedImageUri).addOnSuccessListener(
+                    this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
+                            while (!urlTask.isSuccessful()) ;
+                            final Uri downloadUrl = urlTask.getResult();
+                            image =downloadUrl.toString();
+                            Log.i("TAG","This is the image:---->"+image);
+
+                        }
+                    });
+        }
     }
 
-    public void Guardar(View view){
+    public void GuardarAutomoviles() {
 
-        String marca=edMarca.getText().toString().trim();
-        int chasis= Integer.parseInt(edChasis.getText().toString().trim());
-        String color=edColor.getText().toString().trim();
-        int kilometraje=Integer.parseInt(edKilometraje.getText().toString().trim());
-        int modelo=Integer.parseInt(edModelo.getText().toString().trim());
-        String placa= edPlaca.getText().toString().trim();
-        String motor=edMotor.getText().toString().trim();
-        int precio=Integer.parseInt(edPrecio.getText().toString().trim());
-        String referencia=edReferencia.getText().toString().trim();
-        String sucursal= edSucursal.getText().toString().trim();
+//        if(image!=null) {
 
-        firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
-        uId=firebaseUser.getUid();
-
+        String marca = edMarca.getText().toString().trim();
+        int chasis = Integer.parseInt(edChasis.getText().toString().trim());
+        String color = edColor.getText().toString().trim();
+        int kilometraje = Integer.parseInt(edKilometraje.getText().toString().trim());
+        int modelo = Integer.parseInt(edModelo.getText().toString().trim());
+        String placa = edPlaca.getText().toString().trim();
+        String motor = edMotor.getText().toString().trim();
+        int precio = Integer.parseInt(edPrecio.getText().toString().trim());
+        String referencia = edReferencia.getText().toString().trim();
+        String sucursal = edSucursal.getText().toString().trim();
 
 
-        Automoviles autosAdmin=new Automoviles(uId,marca,placa,referencia,color,imagen,
-                modelo,precio,chasis,kilometraje,motor,sucursal);
 
+            Automoviles autosAdmin = new Automoviles(marca, placa, referencia, color, image,
+                    modelo, precio, chasis, kilometraje, motor, sucursal);
+
+           databaseReference.push().setValue(autosAdmin);
+            String key = databaseReference.getKey();
+        Toast.makeText(this, "save ok", Toast.LENGTH_SHORT).show();
+
+
+
+//        }else {
+//            Toast.makeText(this, "Debe seleccionar una imagen", Toast.LENGTH_SHORT).show();
+//        }
 
     }
 }
