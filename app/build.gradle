@@ -3,16 +3,10 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         config {
-            keyAlias 'MyReleaseKey'
-            keyPassword '80195582'
-            storePassword '80195582'
-            storeFile file('/Users/mac/Desktop/UdacityCapstoneFinalProject/app/release/release.keystore.jks')
-        }
-        release {
-            storePassword "80195582"
-            keyAlias 'MyReleaseKey'
-            keyPassword "80195582"
-            storeFile file('/Users/mac/Desktop/UdacityCapstoneFinalProject/app/release/release.keystore.jks')
+//            keyAlias 'CapstoneUdacity'
+//            keyPassword 'password'
+//            storePassword 'password'
+//            storeFile file('/Users/mac/Desktop/UdacityCapstoneFinalProject/app/release/release.keystore.jks')
         }
     }
     compileSdkVersion 28
@@ -26,7 +20,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             //runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
            signingConfig signingConfigs.config

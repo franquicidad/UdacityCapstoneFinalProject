@@ -29,8 +29,8 @@ public class Users {
         return isAdmin;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setisAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public List<Users> getLista_de_usuarios() {

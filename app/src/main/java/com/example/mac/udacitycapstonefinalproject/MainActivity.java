@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.mac.udacitycapstonefinalproject.Model.Automoviles;
+import com.example.mac.udacitycapstonefinalproject.Model.Favorites;
 import com.example.mac.udacitycapstonefinalproject.Model.Users;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
     private StorageReference mStorageReference;
-    FirebaseUser user;
+
     String UID;
     boolean isAdm;
 
@@ -92,43 +93,8 @@ public class MainActivity extends AppCompatActivity
 
         mFirebaseDatabase=FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Users");
         mStorageReference= FirebaseStorage.getInstance().getReference("CarImages");
-
-
-
-
-
-        user=FirebaseAuth.getInstance().getCurrentUser();
-        Log.i("User"," This is the user ---->:"+user);
-        UID=user.getUid();
-        Log.i("User1","This is user 1:---->:"+UID);
-
-        if(mFirebaseAuth.getCurrentUser()==null) {
-
-            mDatabaseReference.child("Users").child(user.getUid()).child("name").setValue(user.getDisplayName());
-
-            mDatabaseReference.child("Users").child(user.getUid()).child("isAdmin").setValue(false);
-        }
-//
-//        Query query=mDatabaseReference.child("Users");
-//        query.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for (DataSnapshot ds:dataSnapshot.getChildren()) {
-//                    boolean users= (boolean) ds.child(mFirebaseAuth.getUid()).child("isAdmin").getValue();
-
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-
-
 
 
 
@@ -147,8 +113,9 @@ public class MainActivity extends AppCompatActivity
 
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+                    UID=user.getUid();
                     onSignedInInitialize(user.getDisplayName());
-
+                    ValidateUser();
                 } else {
                     onSignedOutCleanup();
                     startActivityForResult(
@@ -174,35 +141,7 @@ public class MainActivity extends AppCompatActivity
 
 //
 
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference usersRef = rootRef.child("Users");
-        usersRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                    boolean isAdmin = ds.child("isAdmin").getValue(Boolean.class);
-                    Users users =ds.getValue(Users.class);
-                    String name =users.getName();
-                    Log.i("No","Este es el nombre------>:"+name);
-                    String id=ds.getKey();
 
-
-                    Log.d("TAG", "isAdmin is: " + id);
-
-                    if (isAdmin) {
-                        fab.show();
-                    } else {
-                        fab.hide();
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -246,6 +185,42 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    private void ValidateUser() {
+        Query query = mDatabaseReference.orderByKey().equalTo(mFirebaseAuth.getUid());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() ==null) {
+                    AddUserProfile();
+                }else {
+                    for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+
+                        boolean isAdm = ds.child("isAdmin").getValue(Boolean.class);
+                        if (isAdm) {
+                            fab.show();
+                        } else {
+                            fab.hide();
+                        }
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void AddUserProfile() {
+
+    mDatabaseReference.child(mFirebaseAuth.getUid()).child("name").setValue(mFirebaseAuth.getCurrentUser().getDisplayName());
+
+    mDatabaseReference.child(mFirebaseAuth.getUid()).child("isAdmin").setValue(false);
+
+    }
 
 
     private void onSignedOutCleanup() {
