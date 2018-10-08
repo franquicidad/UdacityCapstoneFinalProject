@@ -1,5 +1,6 @@
 package com.example.mac.udacitycapstonefinalproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import com.example.mac.udacitycapstonefinalproject.Model.Automoviles;
 import com.example.mac.udacitycapstonefinalproject.Service.SvAutomoviles;
 import com.example.mac.udacitycapstonefinalproject.Util.AppModel;
+import com.example.mac.udacitycapstonefinalproject.Widget.CarWidget;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -122,11 +124,13 @@ import butterknife.ButterKnife;
                   * Here you Create another Automoviles object to setLista_de_automoviles
                   */
 
+
+
                  automoviles.setLista_de_automoviles(svAutomoviles.GetAutomoviles(dataSnapshot));
 
                  mArraylistAutomoviles=automoviles.getLista_de_automoviles();
                  String marca=automoviles.getMarca();
-
+                 String imagen=automoviles.getImagen();
 
                  Automoviles xx=svAutomoviles.GetAutomovil(dataSnapshot);
                  Log.i("MArca","This is -----------------> MArca:"+marca);
@@ -142,6 +146,8 @@ import butterknife.ButterKnife;
                  recyclerView.setHasFixedSize(true);
                  recyclerView.setLayoutManager(layoutManager);
                  recyclerView.setAdapter(adapterViewCars);
+
+
 
              }
              @Override

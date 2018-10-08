@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.mac.udacitycapstonefinalproject.Model.Automoviles;
+import com.example.mac.udacitycapstonefinalproject.Widget.CarWidget;
 
 import java.util.List;
 
@@ -41,6 +42,9 @@ public class AdapterViewCars extends RecyclerView.Adapter<AdapterViewCars.Recycl
         Glide.with(context)
                 .load(automoviles.getImagen())
                 .into(holder.imgCarro);
+
+        Intent imageIntent=new Intent(context, CarWidget.class);
+        imageIntent.putExtra("widget_image",automoviles.getImagen());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
