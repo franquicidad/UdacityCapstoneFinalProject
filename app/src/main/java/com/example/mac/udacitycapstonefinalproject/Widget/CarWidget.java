@@ -45,8 +45,8 @@ public class CarWidget extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-
         image = intent.getStringExtra("widget_image");
+
     }
 
     @Override

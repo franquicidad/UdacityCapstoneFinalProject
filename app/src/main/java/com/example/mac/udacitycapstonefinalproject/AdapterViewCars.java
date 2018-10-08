@@ -44,7 +44,7 @@ public class AdapterViewCars extends RecyclerView.Adapter<AdapterViewCars.Recycl
                 .into(holder.imgCarro);
 
         Intent imageIntent=new Intent(context, CarWidget.class);
-        imageIntent.putExtra("widget_image",automoviles.getImagen());
+        imageIntent.putExtra("widget_image",automoviles);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,11 +76,7 @@ public class AdapterViewCars extends RecyclerView.Adapter<AdapterViewCars.Recycl
 
         }
 
-
     }
-
-
-
 
 }
 

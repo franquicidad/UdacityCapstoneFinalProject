@@ -47,6 +47,7 @@ public class WidgetService extends RemoteViewsService {
         String marca;
         String imagen;
         List<Automoviles> mAutos;
+        Automoviles automoviles;
 
         WidgetItemFactory(Context context,Intent intent){
             this.context=context;
@@ -98,6 +99,8 @@ public class WidgetService extends RemoteViewsService {
 
                 }
             });
+
+
             }
 
         @Override
@@ -125,14 +128,19 @@ public class WidgetService extends RemoteViewsService {
 
            Automoviles autos= mArraylistAutomoviles.get(position);
 
+           Intent intent=new Intent();
+           automoviles=intent.getExtras().getParcelable("widget_image");
+           String autoImagen=automoviles.getImagen();
+           Log.i("Image","This is the image in the widget---->: "+autoImagen);
+
+
            String image=autos.getImagen();
 
            Intent imageIntent=new Intent();
            imageIntent.putExtra("widget_image",image);
 
 
-
-            return views;
+           return views;
         }
 
         @Override
@@ -155,4 +163,5 @@ public class WidgetService extends RemoteViewsService {
             return true;
         }
     }
+
 }
