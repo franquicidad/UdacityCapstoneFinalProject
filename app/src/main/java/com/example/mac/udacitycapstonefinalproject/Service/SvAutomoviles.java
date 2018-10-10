@@ -9,8 +9,6 @@ import java.util.List;
 
 public class SvAutomoviles {
 
-
-
     public Automoviles GetAutomovil(DataSnapshot dataSnapshot) {
         Automoviles automoviles =  dataSnapshot.getValue(Automoviles.class);
         return automoviles;

@@ -1,11 +1,11 @@
 package com.example.mac.udacitycapstonefinalproject;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,9 +17,7 @@ import android.view.ViewGroup;
 import com.example.mac.udacitycapstonefinalproject.Model.Automoviles;
 import com.example.mac.udacitycapstonefinalproject.Service.SvAutomoviles;
 import com.example.mac.udacitycapstonefinalproject.Util.AppModel;
-import com.example.mac.udacitycapstonefinalproject.Widget.CarWidget;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.example.mac.udacitycapstonefinalproject.Widget.ListService;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,6 +39,8 @@ import butterknife.ButterKnife;
      List<Automoviles> mArraylistAutomoviles;
      FirebaseDatabase mFirebaseDatabase;
      DatabaseReference mDatabaseReference;
+     public static final String LIST_SERVICE ="listService";
+     Context context;
 
 
 
@@ -84,14 +84,6 @@ import butterknife.ButterKnife;
          GetCarros();
 
 
-         /**
-          * Traer datos de Firebase
-          */
-
-
-//         user=mAuth.getCurrentUser();
-//         userID=user.getUid();
-
 
 
          return view;
@@ -113,7 +105,7 @@ import butterknife.ButterKnife;
          });
      }
 
-     private void GetCarros(){
+     public void GetCarros(){
          Query query = mDatabaseReference.child(AppModel.Automoviles);
          query.addValueEventListener(new ValueEventListener() {
              @Override
@@ -146,6 +138,10 @@ import butterknife.ButterKnife;
                  recyclerView.setHasFixedSize(true);
                  recyclerView.setLayoutManager(layoutManager);
                  recyclerView.setAdapter(adapterViewCars);
+
+                 Intent serviceIntentWidget=new Intent(getContext(), ListService.class);
+                 serviceIntentWidget.putParcelableArrayListExtra(LIST_SERVICE,(ArrayList<Automoviles>) mArraylistAutomoviles);
+                 getActivity().startService(serviceIntentWidget);
 
 
 

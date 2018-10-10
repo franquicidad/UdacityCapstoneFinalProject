@@ -12,14 +12,18 @@ import android.widget.EditText;
 import com.example.mac.udacitycapstonefinalproject.R;
 
 /**
- * The configuration screen for the {@link CarWidget CarWidget} AppWidget.
+ * The configuration screen for the {@link CarWidgetProvider CarWidgetProvider} AppWidget.
  */
 public class CarWidgetConfigureActivity extends Activity {
 
-    private static final String PREFS_NAME = "com.example.mac.udacitycapstonefinalproject.Widget.CarWidget";
+    private static final String PREFS_NAME = "com.example.mac.udacitycapstonefinalproject.Widget.CarWidgetProvider";
     private static final String PREF_PREFIX_KEY = "appwidget_";
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     EditText mAppWidgetText;
+    String image= "";
+    String marca="";
+
+
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
             final Context context = CarWidgetConfigureActivity.this;
@@ -30,7 +34,8 @@ public class CarWidgetConfigureActivity extends Activity {
 
             // It is the responsibility of the configuration activity to update the app widget
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            CarWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
+            CarWidgetProvider carWidgetProvider=new CarWidgetProvider();
+            carWidgetProvider.updateAppWidget(context, appWidgetManager, mAppWidgetId);
 
             // Make sure we pass back the original appWidgetId
             Intent resultValue = new Intent();

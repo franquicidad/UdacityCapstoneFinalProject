@@ -27,6 +27,9 @@ import com.bumptech.glide.Glide;
 import com.example.mac.udacitycapstonefinalproject.Model.Automoviles;
 import com.example.mac.udacitycapstonefinalproject.Model.Favorites;
 import com.example.mac.udacitycapstonefinalproject.Model.Users;
+import com.example.mac.udacitycapstonefinalproject.Service.SvAutomoviles;
+import com.example.mac.udacitycapstonefinalproject.Util.AppModel;
+import com.example.mac.udacitycapstonefinalproject.Widget.ListService;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -42,9 +45,12 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.example.mac.udacitycapstonefinalproject.CarroNuevoFragment.LIST_SERVICE;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -79,7 +85,7 @@ public class MainActivity extends AppCompatActivity
     String UID;
     boolean isAdm;
 
-    ArrayList<Automoviles> automovilesArrayList;
+    List<Automoviles> automovilesArrayList;
 
 
     @Override
@@ -164,12 +170,12 @@ public class MainActivity extends AppCompatActivity
             String email = user.getEmail();
             Uri photoUrl = user.getPhotoUrl();
             dwUsuario.setText(name);
+
+
+            Glide.with(this).load(photoUrl).into(imgdwavatar);
             dwCorreo.setText(email);
 
-            Glide.with(this).load(user.getPhotoUrl().toString()).into(imgdwavatar);
 
-        } else {
-            //TODO:Implementar lo de que si el usuario no esta registrado lo mande al login screen
         }
 
 
@@ -182,6 +188,14 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+
+//        databaseTest();
+
+
+//        Intent serviceIntentWidget=new Intent(this, ListService.class);
+//        serviceIntentWidget.putParcelableArrayListExtra(LIST_SERVICE,(ArrayList<Automoviles>) automovilesArrayList);
+//        this.startService(serviceIntentWidget);
 
     }
 
@@ -364,6 +378,47 @@ public class MainActivity extends AppCompatActivity
             //mMessagesDatabaseReference.removeEventListener(mChildEventListener);
             mChildEventListener = null;
         }
+
+
+
+
+    }
+
+    public void databaseTest(){
+        mFirebaseDatabase=FirebaseDatabase.getInstance();
+
+        mDatabaseReference=FirebaseDatabase.getInstance().getReference();
+        automovilesArrayList=new ArrayList<>();
+
+        Query query = mDatabaseReference.child(AppModel.Automoviles);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Automoviles automoviles = new Automoviles();
+
+                SvAutomoviles svAutomoviles=new SvAutomoviles();
+
+                /**
+                 * Here you Create another Automoviles object to setLista_de_automoviles
+                 *
+                 */
+                automoviles.setLista_de_automoviles(svAutomoviles.GetAutomoviles(dataSnapshot));
+
+
+                automovilesArrayList= automoviles.getLista_de_automoviles();
+
+                /**
+                 * Then you get the arraylist in the adapters constructor which receives as parameters
+                 * AdapterViewCars(context,List<Automoviles)
+                 */
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
     }
 
