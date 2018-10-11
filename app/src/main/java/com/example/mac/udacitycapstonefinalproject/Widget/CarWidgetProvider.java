@@ -44,7 +44,9 @@ public class CarWidgetProvider extends AppWidgetProvider {
 
 
         if(intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)) {
-            automovilesArrayList=intent.getParcelableArrayListExtra(CarroNuevoFragment.LIST_SERVICE);
+
+
+                automovilesArrayList = intent.getParcelableArrayListExtra(CarroNuevoFragment.LIST_SERVICE);
 
         }
 
@@ -69,6 +71,7 @@ public class CarWidgetProvider extends AppWidgetProvider {
 
     private void startActionUpdateCarWidgets(Context context) {
         Intent intent = new Intent(context, StackWidgetService.class);
+        intent.putParcelableArrayListExtra(CarroNuevoFragment.LIST_SERVICE,automovilesArrayList);
         context.startService(intent);
     }
 

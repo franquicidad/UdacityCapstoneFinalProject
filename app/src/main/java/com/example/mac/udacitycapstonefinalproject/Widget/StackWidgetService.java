@@ -183,8 +183,8 @@ public class StackWidgetService extends RemoteViewsService {
         });
         AppWidgetManager appWidgetManager=AppWidgetManager.getInstance(context);
         int[] appWidgetIds=appWidgetManager.getAppWidgetIds(new ComponentName(context,CarWidgetProvider.class));
-        CarWidgetProvider carWidgetProvider=new CarWidgetProvider();
-        carWidgetProvider.updateCarWidgets(context,appWidgetManager,appWidgetIds);
+//        CarWidgetProvider carWidgetProvider=new CarWidgetProvider();
+//        carWidgetProvider.updateCarWidgets(context,appWidgetManager,appWidgetIds);
 
     }
 }
