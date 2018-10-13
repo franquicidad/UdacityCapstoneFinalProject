@@ -5,17 +5,21 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.target.AppWidgetTarget;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.mac.udacitycapstonefinalproject.AdapterViewCars;
 import com.example.mac.udacitycapstonefinalproject.CarroNuevoFragment;
@@ -34,16 +38,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StackWidgetService extends RemoteViewsService {
+    static List<Automoviles> mArraylistAutomoviles;
+
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        return (new WidgetService(this.getApplicationContext(),intent));
+        return (new WidgetService(this.getApplicationContext()));
     }
 
 
  class WidgetService implements RemoteViewsService.RemoteViewsFactory {
     SvAutomoviles svAutomoviles;
-     List<Automoviles> mArraylistAutomoviles;
 
      FirebaseDatabase mFirebaseDatabase;
     DatabaseReference mDatabaseReference;
@@ -56,17 +61,12 @@ public class StackWidgetService extends RemoteViewsService {
     Automoviles automoviles;
 
 
-    public WidgetService(Context applicationContext,Intent intent) {
-        this.intent=intent;
-
+    public WidgetService(Context applicationContext) {
         mContext = applicationContext;
-
     }
 
     @Override
     public void onCreate() {
-
-        mArraylistAutomoviles=intent.getParcelableArrayListExtra(CarroNuevoFragment.LIST_SERVICE);
 
     }
 
@@ -75,9 +75,8 @@ public class StackWidgetService extends RemoteViewsService {
     public void onDataSetChanged() {
 //        handleActionUpdateCarWidgets();
 
-        if(intent !=null) {
-            mArraylistAutomoviles = intent.getParcelableArrayListExtra(CarroNuevoFragment.LIST_SERVICE);
-        }
+            mArraylistAutomoviles = CarWidgetProvider.automovilesArrayList;
+
 
 
     }
@@ -88,7 +87,11 @@ public class StackWidgetService extends RemoteViewsService {
 
     @Override
     public int getCount() {
-        return mArraylistAutomoviles.size();
+        if(mArraylistAutomoviles !=null){
+            return mArraylistAutomoviles.size();
+        }else {
+            return 0;
+        }
     }
 
     /**
@@ -100,24 +103,21 @@ public class StackWidgetService extends RemoteViewsService {
     @Override
     public RemoteViews getViewAt(int position) {
 
-        RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.car_widget);
+        RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.widget_item);
         Automoviles autoService=mArraylistAutomoviles.get(position);
         String imagen=autoService.getImagen();
         String marca =autoService.getMarca();
 
-        int imagenInt= Integer.parseInt(imagen);
+
+//        Bitmap imageBitmap=Glide.with(context).asBitmap().load(imagen).get();
+
+//        int imagenInt= Integer.parseInt(imagen);
 
         // Update the plant image
-        views.setImageViewResource(R.id.widget_image_item, imagenInt);
+        views.setImageViewResource(R.id.widget_image_item, R.drawable.mazda2azul);
 
         views.setTextViewText(R.id.textView,marca);
 
-//        // Fill in the onClick PendingIntent Template using the specific plant Id for each item individually
-//        Bundle extras = new Bundle();
-//        extras.putLong(PlantDetailActivity.EXTRA_PLANT_ID , plantId);
-//        Intent fillInIntent = new Intent();
-//        fillInIntent.putExtras(extras);
-//        views.setOnClickFillInIntent(R.id.widget_plant_image , fillInIntent);
 
         return views;
 
@@ -143,50 +143,7 @@ public class StackWidgetService extends RemoteViewsService {
         return true;
     }
 
-    public  void handleActionUpdateCarWidgets(){
-        mFirebaseDatabase=FirebaseDatabase.getInstance();
-
-        mDatabaseReference=FirebaseDatabase.getInstance().getReference();
-
-        mArraylistAutomoviles=new ArrayList<>();
-
-
-        Query query = mDatabaseReference.child(AppModel.Automoviles);
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Automoviles automoviles = new Automoviles();
-
-                SvAutomoviles svAutomoviles=new SvAutomoviles();
-
-                /**
-                 * Here you Create another Automoviles object to setLista_de_automoviles
-                 *
-                 */
-                automoviles.setLista_de_automoviles(svAutomoviles.GetAutomoviles(dataSnapshot));
-
-
-                mArraylistAutomoviles=automoviles.getLista_de_automoviles();
-                marca=automoviles.getMarca();
-                imagen=automoviles.getImagen();
-
-                /**
-                 * Then you get the arraylist in the adapters constructor which receives as parameters
-                 * AdapterViewCars(context,List<Automoviles)
-                 */
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        AppWidgetManager appWidgetManager=AppWidgetManager.getInstance(context);
-        int[] appWidgetIds=appWidgetManager.getAppWidgetIds(new ComponentName(context,CarWidgetProvider.class));
-//        CarWidgetProvider carWidgetProvider=new CarWidgetProvider();
-//        carWidgetProvider.updateCarWidgets(context,appWidgetManager,appWidgetIds);
-
     }
-}
+
 }
 

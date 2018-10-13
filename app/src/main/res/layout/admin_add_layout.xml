@@ -19,6 +19,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:scaleType="fitXY"
+        android:contentDescription="@string/ContentDes_of_picture_tacken_admin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +38,7 @@
         android:layout_marginStart="156dp"
         android:layout_marginTop="212dp"
         android:scaleType="fitXY"
+        android:contentDescription="@string/Add_picture_to_the_item_to_add"
         android:src="@drawable/photo_camera"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +75,7 @@
                     android:layout_weight="1"
                     android:paddingLeft="13dp"
 
-                    android:text="Marca"
+                    android:text="@string/marca"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -81,6 +83,7 @@
                     android:id="@+id/ed_marca"
                     android:layout_width="0dp"
                     android:inputType="text"
+                    android:contentDescription="@string/add_marca"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="13dp"
@@ -99,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="13dp"
-                    android:text="Chasis"
+                    android:text="@string/chasis"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -109,6 +112,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:contentDescription="@string/add_chasis"
                     android:paddingLeft="13dp"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -125,7 +129,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="13dp"
-                    android:text="Color"
+                    android:text="@string/color"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -134,6 +138,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:contentDescription="@string/add_cars_color"
                     android:inputType="text"
                     android:paddingLeft="13dp"
                     android:textSize="22sp"
@@ -151,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="13dp"
-                    android:text="Kilometraje"
+                    android:text="@string/kilometraje"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -161,6 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="number"
+                    android:contentDescription="@string/add_kilometraje"
                     android:paddingLeft="13dp"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -177,7 +183,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="13dp"
-                    android:text="Modelo"
+                    android:text="@string/modelo"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -187,6 +193,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="number"
+                    android:contentDescription="add Modelo"
                     android:paddingLeft="13dp"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -203,7 +210,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="13dp"
-                    android:text="Motor"
+                    android:text="@string/motor"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -213,6 +220,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="13dp"
+                    android:contentDescription="add Motor"
                     android:inputType="text"
                     android:textSize="22sp"
                     android:textStyle="bold" />
@@ -229,7 +237,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="13dp"
-                    android:text="Placa"
+                    android:text="@string/placa1"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -238,6 +246,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:contentDescription="@string/add_placa"
                     android:paddingLeft="13dp"
                     android:inputType="text"
                     android:textSize="22sp"
@@ -255,7 +264,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="13dp"
-                    android:text="Precio"
+                    android:text="@string/precio1"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -264,6 +273,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:contentDescription="@string/add_precio1"
                     android:inputType="number"
                     android:paddingLeft="13dp"
                     android:textSize="22sp"
@@ -281,7 +291,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="13dp"
-                    android:text="Referencia"
+                    android:text="@string/referencia"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -290,6 +300,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:contentDescription="@string/add_referencia"
                     android:paddingLeft="13dp"
                     android:inputType="text"
                     android:textSize="22sp"
@@ -307,7 +318,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="13dp"
-                    android:text="Sucursal"
+                    android:text="@string/sucursal1"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -316,6 +327,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:contentDescription="@string/add_sucursal"
                     android:paddingLeft="13dp"
                     android:inputType="text"
                     android:textSize="22sp"
@@ -330,6 +342,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/holo_red_light"
                 android:text="Save"
+                android:contentDescription="save button"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginTop="40dp"

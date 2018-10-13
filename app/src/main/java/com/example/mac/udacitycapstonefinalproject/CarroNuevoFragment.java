@@ -139,6 +139,10 @@ import butterknife.ButterKnife;
                  recyclerView.setLayoutManager(layoutManager);
                  recyclerView.setAdapter(adapterViewCars);
 
+                 /**Here i pass the object into the Widget
+                  *
+                  */
+
                  Intent serviceIntentWidget=new Intent(getContext(), ListService.class);
                  serviceIntentWidget.putParcelableArrayListExtra(LIST_SERVICE,(ArrayList<Automoviles>) mArraylistAutomoviles);
                  getActivity().startService(serviceIntentWidget);

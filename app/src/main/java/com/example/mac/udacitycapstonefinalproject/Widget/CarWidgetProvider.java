@@ -34,7 +34,7 @@ import java.util.ArrayList;
  */
 public class CarWidgetProvider extends AppWidgetProvider {
 
-    public  ArrayList<Automoviles> automovilesArrayList;
+    static ArrayList<Automoviles> automovilesArrayList;
     String image;
     String marca;
     Automoviles auto;
@@ -42,12 +42,19 @@ public class CarWidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, CarWidgetProvider.class));
+
 
         if(intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)) {
+            ArrayList carArrayList = intent.getParcelableArrayListExtra(CarroNuevoFragment.LIST_SERVICE);
+            if(carArrayList != null) {
+                automovilesArrayList= carArrayList;
+            }
 
-
-                automovilesArrayList = intent.getParcelableArrayListExtra(CarroNuevoFragment.LIST_SERVICE);
-
+            if(automovilesArrayList!= null) {
+                updateCarWidgets(context, appWidgetManager, appWidgetIds);
+            }
         }
 
         super.onReceive(context, intent);
@@ -65,20 +72,16 @@ public class CarWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         //Start the intent service update widget action, the service takes care of updating the widgets UI
-        startActionUpdateCarWidgets(context);
-        updateCarWidgets(context,appWidgetManager,appWidgetIds);
-    }
-
-    private void startActionUpdateCarWidgets(Context context) {
-        Intent intent = new Intent(context, StackWidgetService.class);
-        intent.putParcelableArrayListExtra(CarroNuevoFragment.LIST_SERVICE,automovilesArrayList);
-        context.startService(intent);
+        if(automovilesArrayList !=null) {
+            updateCarWidgets(context, appWidgetManager, appWidgetIds);
+        }
     }
 
 
-    public  void updateCarWidgets(Context context, AppWidgetManager appWidgetManager,
+    public void updateCarWidgets(Context context, AppWidgetManager appWidgetManager,
                                           int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId,R.id.widget_stack_view);
             updateAppWidget(context, appWidgetManager,appWidgetId);
         }
     }
@@ -94,7 +97,6 @@ public class CarWidgetProvider extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.car_widget);
         // Set the GridWidgetService intent to act as the adapter for the GridView
         Intent intent = new Intent(context, StackWidgetService.class);
-        intent.putParcelableArrayListExtra(CarroNuevoFragment.LIST_SERVICE,automovilesArrayList);
         views.setRemoteAdapter(R.id.widget_stack_view, intent);
         // Set the PlantDetailActivity intent to launch when clicked
         Intent appIntent = new Intent(context, CarDetailView.class);

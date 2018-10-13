@@ -2,7 +2,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:id="@+id/stack_item">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,12 +14,10 @@
         android:id="@+id/widget_image_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srcCompat="@drawable/mazda2azul"
+        android:contentDescription="@string/car_image"
+        tool:src="@drawable/mazda2azul"
         android:scaleType="fitXY"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/scrim"/>
+
 
         <TextView
             android:id="@+id/textView"
@@ -25,7 +25,7 @@
             android:layout_height="39dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginBottom="31dp"
+            android:layout_marginBottom="57dp"
             android:layout_marginEnd="24dp"
             android:text="Mazda 2"
             android:textColor="@android:color/white"

@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/coordinator_layout"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
         android:fitsSystemWindows="true"
-        app:layout_anchorGravity="left|top"
-        >
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_anchorGravity="left|top">
+
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            android:fitsSystemWindows="true">
-            
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
             <ImageView
                 android:id="@+id/imgdetalle"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:src="@drawable/mazda2azul"
+                android:contentDescription="@string/image_for_car_selected"
                 android:scaleType="centerCrop"
+                android:src="@drawable/mazda2azul"
                 app:layout_collapseMode="parallax" />
 
             <View
@@ -43,308 +44,311 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
                 android:background="@drawable/background_translucent_toolbar"
                 android:theme="@style/Theme.AppCompat.Light"
+                app:layout_collapseMode="pin"
 
                 >
 
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
-        
+
     </android.support.design.widget.AppBarLayout>
-    
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:orientation="vertical">
-
-
-
-         <TextView
-             android:id="@+id/car_description"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:padding="20dp"
-             android:textColor="#000000"
-             android:text="@string/mazda2description"/>
-        <android.support.v7.widget.CardView
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:cardUseCompatPadding="true"
-            app:cardCornerRadius="2dp"
-            android:elevation="8dp">
-            <LinearLayout
-                android:padding="8dp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/car_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:padding="20dp"
+                android:text="@string/mazda2description"
+                android:textColor="#000000" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="20dp"
+                android:elevation="8dp"
+                app:cardCornerRadius="2dp"
+                app:cardUseCompatPadding="true">
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    >
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
 
-                    <TextView
+                        <TextView
 
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:textSize="20dp"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/precio1"
 
-                        android:text="Precio"/>
-                    <TextView
-                        android:id="@+id/detalle_precio"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:textStyle="bold"
-                        android:background="#af370b"
-                        android:padding="5dp"
+                            android:textSize="20sp" />
 
-                        android:textColor="@android:color/white"
-                        android:text="$500000000"/>
+                        <TextView
+                            android:id="@+id/detalle_precio"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:background="#af370b"
+                            android:padding="5dp"
+                            android:text="@string/_500000000"
+
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#BDBDBD">
+
+                    </View>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/referencia"
+
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/detalle_referencia_carro"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:text="@string/mazda_2"
+
+                            />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#BDBDBD">
+
+                    </View>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+
+                        >
+
+                        <TextView
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+
+                            android:text="@string/modelo"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/detalle_modelo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/_2020" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#BDBDBD">
+
+                    </View>
+
+                    <LinearLayout
+                        android:id="@+id/lymotor"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/motor"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/detalle_motor"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/_120000_km" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#BDBDBD">
+
+                    </View>
+
+                    <LinearLayout
+                        android:id="@+id/lykilometraje"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <TextView
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/kilometraje"
+
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/detalle_kilometraje"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/_120000_km" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_transmicion"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/transmicion"
+
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+
                 </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#BDBDBD"
-                    android:layout_marginTop="10dp">
 
-                </View>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    >
+            </android.support.v7.widget.CardView>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                    <TextView
+                <EditText
+                    android:id="@+id/edittext_url"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:cursorVisible="true"
+                    android:hint="@string/please_enter_the_url"
+                    android:textIsSelectable="true" />
 
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:textSize="20dp"
-
-                        android:text="Referencia"/>
-
-                    <TextView
-                        android:id="@+id/detalle_referencia_carro"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:padding="5dp"
-                        android:text="Mazda 2"
-
-                        />
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#BDBDBD"
-                    android:layout_marginTop="10dp">
-
-                </View>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-
-                    >
-
-                    <TextView
-
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-
-                        android:text="Modelo"
-                        android:textSize="20dp"
-                        />
-                    <TextView
-                        android:layout_marginLeft="10dp"
-                        android:id="@+id/detalle_modelo"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="2020"/>
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#BDBDBD"
-                    android:layout_marginTop="10dp">
-
-                </View>
-                <LinearLayout
-                    android:id="@+id/lymotor"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    >
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="Motor"
-                        android:layout_marginLeft="10dp"
-                        android:textSize="20dp"
-                        />
-                    <TextView
-                        android:layout_marginLeft="10dp"
-                        android:id="@+id/detalle_motor"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="120000 km"/>
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#BDBDBD"
-                    android:layout_marginTop="10dp">
-
-                </View>
-                <LinearLayout
-                    android:id="@+id/lykilometraje"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:visibility="visible"
-                    >
-
-                    <TextView
-
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="Kilometraje"
-                        android:layout_marginLeft="10dp"
-
-                        android:textSize="20dp"
-                        />
-                    <TextView
-                        android:layout_marginLeft="10dp"
-                        android:id="@+id/detalle_kilometraje"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="120000 km"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/layout_transmicion"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:visibility="gone"
-                    >
-
-                    <TextView
-
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:textSize="20dp"
-
-                        android:text="Transmicion"/>
-
-                </LinearLayout>
-
+                <Button
+                    android:id="@+id/button_for_pic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/add_picture" />
 
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:orientation="horizontal">
-             <EditText
-                 android:id="@+id/edittext_url"
-                 android:layout_width="0dp"
-                 android:layout_weight="1"
-                 android:cursorVisible="true"
-                 android:textIsSelectable="true"
-                 android:layout_height="wrap_content"
-                 android:hint="Please enter the URL"/>
-             <Button
-                 android:id="@+id/button_for_pic"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="Add Picture"
-                 android:gravity="center"
-                 />
+                <ImageView
+                    android:id="@+id/uploaded_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:contentDescription="@string/add_picture_to_the_gallery_with_a_internet_link"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/photo_camera" />
+            </RelativeLayout>
 
-         </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
 
-         <RelativeLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginTop="10dp">
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/adView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
 
-             <ImageView
-                 android:id="@+id/uploaded_pic"
-                 android:layout_width="match_parent"
-                 android:layout_height="300dp"
-                 android:scaleType="fitXY"
-                 android:layout_alignParentTop="true"
-                 android:layout_marginTop="15dp"
-                 android:layout_marginBottom="15dp"
-                 android:layout_centerHorizontal="true"
-                 android:src="@drawable/photo_camera" />
-         </RelativeLayout>
-
-         <LinearLayout
-             android:orientation="horizontal"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginTop="30dp">
-
-             <com.google.android.gms.ads.AdView
-                 android:id="@+id/adView"
-                 android:layout_centerHorizontal="true"
-                 android:layout_marginLeft="40dp"
-                 android:layout_marginBottom="10dp"
-
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 ads:adSize="BANNER"
-                 ads:adUnitId="@string/app_id_ads"
-                 />
-         </LinearLayout>
-     </LinearLayout>
-
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="40dp"
+                    ads:adSize="BANNER"
+                    ads:adUnitId="@string/app_id_ads" />
+            </LinearLayout>
+        </LinearLayout>
 
 
     </android.support.v4.widget.NestedScrollView>
-
-
-
-
 
 
 </android.support.design.widget.CoordinatorLayout>
