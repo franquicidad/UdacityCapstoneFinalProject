@@ -3,10 +3,17 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         config {
-//            keyAlias 'CapstoneUdacity'
-//            keyPassword 'password'
-//            storePassword 'password'
-//            storeFile file('/Users/mac/Desktop/UdacityCapstoneFinalProject/app/release/release.keystore.jks')
+//
+            keyAlias 'key4'
+            keyPassword '80195582'
+            storeFile file('/Users/mac/Desktop/UdacityCapstoneFinalProject/app/CapstoreKeystore')
+            storePassword '80195582'
+        }
+        config1 {
+            keyAlias 'key4'
+            keyPassword '80195582'
+            storeFile file('/Users/mac/Desktop/UdacityCapstoneFinalProject/app/CapstoreKeystore')
+            storePassword '80195582'
         }
     }
     compileSdkVersion 28
@@ -18,12 +25,32 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        debug {
+            keyAlias 'key2'
+            keyPassword '80195582'
+            storeFile file('/Users/mac/Desktop/UdacityCapstoneFinalProject/app/keystore.jks')
+            storePassword '80195582'
+        }
+        release {
+            keyAlias 'key2'
+            keyPassword '80195582'
+            storeFile file('/Users/mac/Desktop/UdacityCapstoneFinalProject/app/keystore.jks')
+            storePassword '80195582'
+
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             //runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-           signingConfig signingConfigs.config
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
 }
