@@ -116,6 +116,67 @@ public class AdminAddCar extends AppCompatActivity {
                 finish();
             }
         });
+
+        TextWatcher adminTextwatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                marca = edMarca.getText().toString().trim();
+                chasis = edChasis.getText().toString().trim();
+                color = edColor.getText().toString().trim();
+                kilometraje = edKilometraje.getText().toString().trim();
+                modelo = edModelo.getText().toString().trim();
+                placa = edPlaca.getText().toString().trim();
+                motor = edMotor.getText().toString().trim();
+                precio = edPrecio.getText().toString().trim();
+                referencia = edReferencia.getText().toString().trim();
+                sucursal = edSucursal.getText().toString().trim();
+
+
+                if (!chasis.isEmpty()
+                        && !color.isEmpty()
+                        && !kilometraje.isEmpty()
+                        &&!modelo.isEmpty()
+                        && !placa.isEmpty()
+                        && !motor.isEmpty()
+                        &&!precio.isEmpty()
+                        && !referencia.isEmpty()
+                        && !sucursal.isEmpty()) {
+                    admBotonGuardar.setVisibility(View.VISIBLE);
+                }else{
+                    admBotonGuardar.setVisibility(View.GONE);
+                }
+
+
+            }
+
+
+
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+
+
+        edMarca.addTextChangedListener(adminTextwatcher);
+        edChasis.addTextChangedListener(adminTextwatcher);
+        edColor.addTextChangedListener(adminTextwatcher);
+        edKilometraje.addTextChangedListener(adminTextwatcher);
+        edModelo.addTextChangedListener(adminTextwatcher);
+        edPlaca.addTextChangedListener(adminTextwatcher);
+        edMotor.addTextChangedListener(adminTextwatcher);
+        edPrecio.addTextChangedListener(adminTextwatcher);
+        edReferencia.addTextChangedListener(adminTextwatcher);
+        edSucursal.addTextChangedListener(adminTextwatcher);
+
+
     }
 
 
@@ -158,27 +219,11 @@ public class AdminAddCar extends AppCompatActivity {
         String objSucursal = edSucursal.getText().toString().trim();
 
 
-        edMarca.addTextChangedListener(adminTextwatcher);
-        edChasis.addTextChangedListener(adminTextwatcher);
-        edColor.addTextChangedListener(adminTextwatcher);
-        edKilometraje.addTextChangedListener(adminTextwatcher);
-        edModelo.addTextChangedListener(adminTextwatcher);
-        edPlaca.addTextChangedListener(adminTextwatcher);
-        edMotor.addTextChangedListener(adminTextwatcher);
-        edPrecio.addTextChangedListener(adminTextwatcher);
-        edReferencia.addTextChangedListener(adminTextwatcher);
-        edSucursal.addTextChangedListener(adminTextwatcher);
 
-        marca = edMarca.getText().toString().trim();
-        chasis = edChasis.getText().toString().trim();
-        color = edColor.getText().toString().trim();
-        kilometraje = edKilometraje.getText().toString().trim();
-        modelo = edModelo.getText().toString().trim();
-        placa = edPlaca.getText().toString().trim();
-        motor = edMotor.getText().toString().trim();
-        precio = edPrecio.getText().toString().trim();
-        referencia = edReferencia.getText().toString().trim();
-        sucursal = edSucursal.getText().toString().trim();
+
+
+
+
 
 
 
@@ -193,35 +238,7 @@ public class AdminAddCar extends AppCompatActivity {
         }
 
 
-        TextWatcher adminTextwatcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!chasis.isEmpty()
-                        ||!chasis.isEmpty()
-                        || !color.isEmpty()
-                        || !kilometraje.isEmpty()
-                        || !modelo.isEmpty()
-                        || !placa.isEmpty()
-                        || !motor.isEmpty()
-                        ||!precio.isEmpty()
-                        || !referencia.isEmpty()
-                        || !sucursal.isEmpty()) {
-                    admBotonGuardar.setVisibility(View.VISIBLE);
-                }
-
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        };
 
 
     }

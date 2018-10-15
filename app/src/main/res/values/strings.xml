@@ -24,7 +24,7 @@
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
     <string name="ContentDes_of_picture_tacken_admin">The background of the car that the administrator loads into the picture</string>
-    <string name="Add_picture_to_the_item_to_add">Add the picture of the item you wnat to add to the inventory</string>
+    <string name="Add_picture_to_the_item_to_add">Add the picture of the item you want to add to the inventory</string>
     <string name="add_marca">add marca</string>
     <string name="add_chasis">add chasis</string>
     <string name="add_cars_color">add cars color</string>
@@ -50,7 +50,7 @@
     <string name="precio1">Precio</string>
     <string name="_500000000">$500000000</string>
     <string name="referencia">Referencia</string>
-    <string name="mazda_2">Mazda 2</string>
+    <string name="mazda_2_des">Mazda 2</string>
     <string name="modelo">Modelo</string>
     <string name="_2020">2020</string>
     <string name="motor">Motor</string>
@@ -61,5 +61,28 @@
     <string name="please_enter_the_url">Please enter the URL</string>
     <string name="add_picture">Add Picture</string>
     <string name="nombre_carro">Nombre carro</string>
+    <string name="add_a_name">add a name</string>
+    <string name="agrega_la_marca">agrega la marca</string>
+    <string name="agrega_el_color">agrega el color</string>
+    <string name="agrega_el_kilometraje">agrega el kilometraje</string>
+    <string name="agrega_el_a_o_o_modelo_del_carro">Agrega el año o modelo del carro</string>
+    <string name="agrega_el_numero_de_motor">agrega el numero de motor</string>
+    <string name="agrega_la_placa">agrega la placa</string>
+    <string name="agrega_el_precio">agrega el precio</string>
+    <string name="agrega_la_referencia">agrega la referencia</string>
+    <string name="agrega_la_sucursal">agrega la sucursal</string>
+    <string name="detail_activity">Detail Activity</string>
+    <string name="gallery">Gallery</string>
+    <string name="slideshow">Slideshow</string>
+    <string name="tools">Tools</string>
+    <string name="communicate">Communicate</string>
+    <string name="share">Share</string>
+    <string name="send">Send</string>
+    <string name="mazda_2">Mazda 2</string>
+    <string name="add_modelo">add Modelo</string>
+    <string name="add_motor">add Motor</string>
+    <string name="save_button">save button</string>
+    <string name="save">Save</string>
+    <string name="this_is_the_url">This is the url</string>
 
 </resources>

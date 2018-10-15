@@ -45,6 +45,10 @@ import butterknife.ButterKnife;
 
 public class CarDetailView extends AppCompatActivity {
 
+    @BindView(R.id.uploaded_pic)
+    ImageView uploadedPic;
+    public List<Favorites> favoritesList;
+    public Favorites favorites;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     @BindView(R.id.imgdetalle)
@@ -81,19 +85,10 @@ public class CarDetailView extends AppCompatActivity {
     EditText edittextUrl;
     @BindView(R.id.button_for_pic)
     Button buttonForPic;
-    @BindView(R.id.uploaded_pic)
-    ImageView uploadedPic;
-
-
-    private Automoviles automoviles;
-
     boolean favorite = false;
-
-    public List<Favorites> favoritesList;
-
-    public Favorites favorites;
     FirebaseUser user;
     String urlPicture;
+    private Automoviles automoviles;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -143,41 +138,6 @@ public class CarDetailView extends AppCompatActivity {
             }
         });
 
-//
-//        databaseReference = FirebaseDatabase.getInstance().getReference(AppModel.Favorites);
-//
-//        favoritesButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-//                final DatabaseReference usersRef = rootRef.child("Favorites");
-//                favorites = new Favorites(automoviles.getObjectId(), user.getUid(), AppModel.GetDate());
-//                databaseReference.push().setValue(favorites);
-//
-//
-//                usersRef.addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
-//                            String car = ds.child("automovilesId").getValue(String.class);
-//                            Favorites fav =ds.getValue(Favorites.class);
-//                            String carId =fav.getAutomovilesId();
-//                            Log.i("No","Este es el nombre------>:"+carId);
-//                            String id=ds.getKey();
-//                            AddFavoritesuser();
-//                        }
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
-//
-//            }
-//        });
-
 
         final Display dwigth = getWindowManager().getDefaultDisplay();
 
@@ -191,47 +151,6 @@ public class CarDetailView extends AppCompatActivity {
 
 
     }
-//
-//    private void GetFavorites() {
-//        Query query = databaseReference.orderByChild("automovilesId").equalTo(automoviles.getObjectId());
-//        query.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.getValue() ==null) {
-//                        AddFavoritesuser();
-//                } else {
-//
-//                    for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-//                        Favorites favorites =childDataSnapshot.getValue(Favorites.class);
-//                        if(favorites.getUserId()==user.getUid()) {
-//                            childDataSnapshot.getRef().removeValue();
-//                            Log.d("Datos a volar ", childDataSnapshot.getKey());
-//                        }
-//
-//                    }
-//                }
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-
-
-//    private void deleteFavoritesUser(String key) {
-//        favoritesButton.setImageResource(R.drawable.ic_favorite_border);
-//        databaseReference.child(key).getRef().removeValue();
-//
-//    }
-//
-//    private void AddFavoritesuser() {
-//        favoritesButton.setImageResource(R.drawable.ic_favorite);
-//        favorites = new Favorites(automoviles.getObjectId(), user.getUid(), AppModel.GetDate());
-//        databaseReference.push().setValue(favorites);
-//    }
 
 
     private void setAppbarOffset(int heigthPx) {
@@ -242,23 +161,18 @@ public class CarDetailView extends AppCompatActivity {
     }
 
 
+    private void downloadPicture() {
 
-
-    private void downloadPicture(){
-
-        DownloadImagePicture downloadImagePicture=new DownloadImagePicture();
-        urlPicture=edittextUrl.getText().toString().trim();
+        DownloadImagePicture downloadImagePicture = new DownloadImagePicture();
+        urlPicture = edittextUrl.getText().toString().trim();
 
         downloadImagePicture.execute(urlPicture);
 
-        Log.i("PIC","This is the url"+urlPicture);
-
-
-
+        Log.i("PIC", getString(R.string.this_is_the_url) + urlPicture);
 
     }
 
-    private class DownloadImagePicture extends AsyncTask<String,Void,Bitmap>{
+    private class DownloadImagePicture extends AsyncTask<String, Void, Bitmap> {
 
         ProgressDialog progressDialog;
 
@@ -267,16 +181,15 @@ public class CarDetailView extends AppCompatActivity {
         protected Bitmap doInBackground(String... strings) {
 
             try {
-                URL pictUrl=new URL(strings[0]);
+                URL pictUrl = new URL(strings[0]);
 
-                HttpURLConnection httpURLConnection=(HttpURLConnection)pictUrl.openConnection();
+                HttpURLConnection httpURLConnection = (HttpURLConnection) pictUrl.openConnection();
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.connect();
 
-                InputStream inputStream=httpURLConnection.getInputStream();
+                InputStream inputStream = httpURLConnection.getInputStream();
 
-                Bitmap bitmap=BitmapFactory.decodeStream(inputStream);
-                Log.i("BIT","This is the image____________:"+bitmap);
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 
                 return bitmap;
 
@@ -294,7 +207,7 @@ public class CarDetailView extends AppCompatActivity {
             super.onPostExecute(bitmap);
 
             progressDialog.dismiss();
-            Log.i("BIT","This is the image____________:"+bitmap);
+            Log.i("BIT", "This is the image____________:" + bitmap);
 
 
             uploadedPic.setImageBitmap(bitmap);
@@ -304,7 +217,7 @@ public class CarDetailView extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog=new ProgressDialog(CarDetailView.this);
+            progressDialog = new ProgressDialog(CarDetailView.this);
             progressDialog.setMessage("Downloading Picture...");
             progressDialog.setIndeterminate(true);
             progressDialog.show();

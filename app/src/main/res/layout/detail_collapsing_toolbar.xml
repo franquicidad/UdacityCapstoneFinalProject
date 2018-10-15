@@ -296,6 +296,7 @@
                     android:id="@+id/edittext_url"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:inputType="textUri"
                     android:layout_weight="1"
                     android:cursorVisible="true"
                     android:hint="@string/please_enter_the_url"
