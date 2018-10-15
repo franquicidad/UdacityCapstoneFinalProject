@@ -345,6 +345,7 @@
                 android:contentDescription="save button"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:visibility="gone"
                 android:layout_marginTop="40dp"
                 android:layout_gravity="center"/>
 

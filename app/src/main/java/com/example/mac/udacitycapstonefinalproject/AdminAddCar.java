@@ -2,9 +2,13 @@ package com.example.mac.udacitycapstonefinalproject;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -57,10 +61,18 @@ public class AdminAddCar extends AppCompatActivity {
     @BindView(R.id.ed_sucursal)
     EditText edSucursal;
 
-
-
     String uId;
     String image;
+    String marca;
+    String chasis;
+    String color;
+    String kilometraje;
+    String modelo;
+    String placa;
+    String motor;
+    String precio;
+    String referencia;
+    String sucursal;
 
 
     FirebaseStorage firebaseStorage;
@@ -84,7 +96,6 @@ public class AdminAddCar extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("Automoviles");
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference().child("carUploads");
-
 
 
         addCarPhotoAdmin.setOnClickListener(new View.OnClickListener() {
@@ -123,8 +134,8 @@ public class AdminAddCar extends AppCompatActivity {
                             Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
                             while (!urlTask.isSuccessful()) ;
                             final Uri downloadUrl = urlTask.getResult();
-                            image =downloadUrl.toString();
-                            Log.i("TAG","This is the image:---->"+image);
+                            image = downloadUrl.toString();
+                            Log.i("TAG", "This is the image:---->" + image);
 
                         }
                     });
@@ -135,33 +146,86 @@ public class AdminAddCar extends AppCompatActivity {
 
 //        if(image!=null) {
 
-        String marca = edMarca.getText().toString().trim();
-        int chasis = Integer.parseInt(edChasis.getText().toString().trim());
-        String color = edColor.getText().toString().trim();
-        int kilometraje = Integer.parseInt(edKilometraje.getText().toString().trim());
-        int modelo = Integer.parseInt(edModelo.getText().toString().trim());
-        String placa = edPlaca.getText().toString().trim();
-        String motor = edMotor.getText().toString().trim();
-        int precio = Integer.parseInt(edPrecio.getText().toString().trim());
-        String referencia = edReferencia.getText().toString().trim();
-        String sucursal = edSucursal.getText().toString().trim();
+        String objMarca = edMarca.getText().toString().trim();
+        int objChasis = Integer.parseInt(edChasis.getText().toString().trim());
+        String objColor = edColor.getText().toString().trim();
+        int objKilometraje = Integer.parseInt(edKilometraje.getText().toString().trim());
+        int objModelo = Integer.parseInt(edModelo.getText().toString().trim());
+        String objPlaca = edPlaca.getText().toString().trim();
+        String objMotor = edMotor.getText().toString().trim();
+        int objPrecio = Integer.parseInt(edPrecio.getText().toString().trim());
+        String objReferencia = edReferencia.getText().toString().trim();
+        String objSucursal = edSucursal.getText().toString().trim();
+
+
+        edMarca.addTextChangedListener(adminTextwatcher);
+        edChasis.addTextChangedListener(adminTextwatcher);
+        edColor.addTextChangedListener(adminTextwatcher);
+        edKilometraje.addTextChangedListener(adminTextwatcher);
+        edModelo.addTextChangedListener(adminTextwatcher);
+        edPlaca.addTextChangedListener(adminTextwatcher);
+        edMotor.addTextChangedListener(adminTextwatcher);
+        edPrecio.addTextChangedListener(adminTextwatcher);
+        edReferencia.addTextChangedListener(adminTextwatcher);
+        edSucursal.addTextChangedListener(adminTextwatcher);
+
+        marca = edMarca.getText().toString().trim();
+        chasis = edChasis.getText().toString().trim();
+        color = edColor.getText().toString().trim();
+        kilometraje = edKilometraje.getText().toString().trim();
+        modelo = edModelo.getText().toString().trim();
+        placa = edPlaca.getText().toString().trim();
+        motor = edMotor.getText().toString().trim();
+        precio = edPrecio.getText().toString().trim();
+        referencia = edReferencia.getText().toString().trim();
+        sucursal = edSucursal.getText().toString().trim();
 
 
 
-            Automoviles autosAdmin = new Automoviles(marca, placa, referencia, color, image,
-                    modelo, precio, chasis, kilometraje, motor, sucursal);
 
-           databaseReference.push().setValue(autosAdmin);
+            Automoviles autosAdmin = new Automoviles(objMarca, objPlaca, objReferencia, objColor, image,
+                    objModelo, objPrecio, objChasis, objKilometraje, objMotor, objSucursal);
+
+
+            databaseReference.push().setValue(autosAdmin);
             String key = databaseReference.getKey();
-        Toast.makeText(this, "save ok", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "save ok", Toast.LENGTH_SHORT).show();
+        }
 
 
+        TextWatcher adminTextwatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-//        }else {
-//            Toast.makeText(this, "Debe seleccionar una imagen", Toast.LENGTH_SHORT).show();
-//        }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!chasis.isEmpty()
+                        ||!chasis.isEmpty()
+                        || !color.isEmpty()
+                        || !kilometraje.isEmpty()
+                        || !modelo.isEmpty()
+                        || !placa.isEmpty()
+                        || !motor.isEmpty()
+                        ||!precio.isEmpty()
+                        || !referencia.isEmpty()
+                        || !sucursal.isEmpty()) {
+                    admBotonGuardar.setVisibility(View.VISIBLE);
+                }
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+
 
     }
-}
+
+
 
 
